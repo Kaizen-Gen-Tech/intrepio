@@ -1,0 +1,10 @@
+{
+  "search.exclude": {
+    "**/.next": true,
+    "pnpm-lock.yaml": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
+}
