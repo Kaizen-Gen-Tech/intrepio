@@ -1,11 +1,11 @@
 import Link from "next/link";
 
-import { ThemeToggle } from "~/components/theme-toggle";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import { ThemeToggle } from "~/components/theme-toggle";
 
 export default function HomePage() {
   return (
-    <main className="to-secondary-3 dark:to-secondary-3 flex min-h-screen flex-col items-center justify-center bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-white dark:from-black">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-secondary-1 to-secondary-4">
       <div className="flex flex-col items-center justify-center gap-12 px-4 py-16">
         <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
           Create <span className="text-primary-9">T3</span> App
@@ -14,12 +14,8 @@ export default function HomePage() {
         <ThemeToggle />
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-            className="focusable"
-          >
-            <Card className="hover:bg-accent-3 max-w-xs transition">
+          <Link href="/dashboard" className="focusable">
+            <Card className="max-w-xs transition hover:bg-accent-3">
               <CardHeader>
                 <CardTitle>First Steps →</CardTitle>
               </CardHeader>
@@ -31,12 +27,8 @@ export default function HomePage() {
             </Card>
           </Link>
 
-          <Link
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-            className="focusable"
-          >
-            <Card className="hover:bg-accent-3 max-w-xs transition">
+          <Link href="/dashboard" className="focusable">
+            <Card className="max-w-xs transition hover:bg-accent-3">
               <CardHeader>
                 <CardTitle>Documentation →</CardTitle>
               </CardHeader>

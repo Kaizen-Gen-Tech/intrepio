@@ -22,11 +22,11 @@ export default async function Layout({
       className={cn(
         GeistSans.variable,
         GeistMono.variable,
-        "selection:bg-primary-11 selection:text-primary-1",
+        "selection:bg-primary-5 selection:text-primary-12",
       )}
       suppressHydrationWarning
     >
-      <body>
+      <body className="h-dvh w-dvw">
         <Providers>{children}</Providers>
       </body>
     </html>

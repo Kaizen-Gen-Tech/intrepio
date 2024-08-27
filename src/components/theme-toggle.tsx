@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Moon, Sun } from "@phosphor-icons/react/dist/ssr";
 import { useTheme } from "next-themes";
+import { Moon, Sun } from "@phosphor-icons/react/dist/ssr";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -19,7 +19,7 @@ export function ThemeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="soft" tone="accent" icon>
+        <Button variant="soft" icon>
           <Sun
             size="100%"
             weight="fill"

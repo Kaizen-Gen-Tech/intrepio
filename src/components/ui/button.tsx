@@ -5,12 +5,12 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "~/lib/utils";
 
 const buttonVariants = cva(
-  "focusable inline-flex items-center justify-center whitespace-nowrap font-medium transition disabled:pointer-events-none disabled:opacity-50",
+  "focusable inline-flex items-center justify-center whitespace-nowrap font-medium transition disabled:pointer-events-none disabled:opacity-50 disabled:saturate-50",
   {
     variants: {
       variant: {
         solid:
-          "dark:active:saturate-1 active:brightness-[0.92] active:saturate-[1.1] dark:active:brightness-[1.08]",
+          "active:brightness-90 active:saturate-110 dark:active:brightness-110 dark:active:saturate-100",
         soft: "",
         ghost: "",
       },
@@ -40,91 +40,91 @@ const buttonVariants = cva(
         variant: "solid",
         tone: "primary",
         className:
-          "hover:bg-primary-10 bg-primary-9 fill-muted-12 text-muted-12 dark:text-muted-1 dark:fill-muted-1 hover:shadow-primary-11 dark:hover:shadow-primary-12",
+          "bg-primary-9 fill-muted-12 text-muted-12 hover:bg-primary-10 hover:shadow-primary-11 dark:fill-muted-1 dark:text-muted-1 dark:hover:shadow-primary-12",
       },
       {
         variant: "soft",
         tone: "primary",
         className:
-          "hover:bg-primary-4 bg-primary-3 active:bg-primary-5 fill-primary-11 text-primary-11",
+          "bg-primary-3 fill-primary-11 text-primary-11 hover:bg-primary-4 active:bg-primary-5",
       },
       {
         variant: "ghost",
         tone: "primary",
         className:
-          "hover:bg-primary-3 active:bg-primary-4 fill-primary-11 text-primary-11",
+          "fill-primary-11 text-primary-11 hover:bg-primary-3 active:bg-primary-4",
       },
       {
         variant: "solid",
         tone: "secondary",
         className:
-          "hover:bg-secondary-10 bg-secondary-9 fill-muted-12 text-muted-12 dark:text-muted-1 dark:fill-muted-1 hover:shadow-secondary-11 dark:hover:shadow-secondary-12",
+          "bg-secondary-9 fill-muted-12 text-muted-12 hover:bg-secondary-10 hover:shadow-secondary-11 dark:fill-muted-1 dark:text-muted-1 dark:hover:shadow-secondary-12",
       },
       {
         variant: "soft",
         tone: "secondary",
         className:
-          "hover:bg-secondary-4 bg-secondary-3 active:bg-secondary-5 fill-secondary-11 text-secondary-11",
+          "bg-secondary-3 fill-secondary-11 text-secondary-11 hover:bg-secondary-4 active:bg-secondary-5",
       },
       {
         variant: "ghost",
         tone: "secondary",
         className:
-          "hover:bg-secondary-3 active:bg-secondary-4 fill-secondary-11 text-secondary-11",
+          "fill-secondary-11 text-secondary-11 hover:bg-secondary-3 active:bg-secondary-4",
       },
       {
         variant: "solid",
         tone: "accent",
         className:
-          "hover:bg-accent-10 bg-accent-9 fill-muted-12 text-muted-12 hover:shadow-accent-11 dark:text-muted-1 dark:fill-muted-1 dark:hover:shadow-accent-12",
+          "bg-accent-9 fill-muted-12 text-muted-12 hover:bg-accent-10 hover:shadow-accent-11 dark:fill-muted-1 dark:text-muted-1 dark:hover:shadow-accent-12",
       },
       {
         variant: "soft",
         tone: "accent",
         className:
-          "hover:bg-accent-4 bg-accent-3 active:bg-accent-5 fill-accent-11 text-accent-11",
+          "bg-accent-3 fill-accent-11 text-accent-11 hover:bg-accent-4 active:bg-accent-5",
       },
       {
         variant: "ghost",
         tone: "accent",
         className:
-          "hover:bg-accent-3 active:bg-accent-4 fill-accent-11 text-accent-11",
+          "fill-accent-11 text-accent-11 hover:bg-accent-3 active:bg-accent-4",
       },
       {
         variant: "solid",
         tone: "muted",
         className:
-          "hover:bg-muted-10 bg-muted-9 hover:shadow-muted-12 fill-white text-white",
+          "bg-muted-9 fill-white text-white hover:bg-muted-10 hover:shadow-muted-12",
       },
       {
         variant: "soft",
         tone: "muted",
         className:
-          "hover:bg-muted-4 bg-muted-3 active:bg-muted-5 fill-muted-11 text-muted-11",
+          "bg-muted-3 fill-muted-11 text-muted-11 hover:bg-muted-4 active:bg-muted-5",
       },
       {
         variant: "ghost",
         tone: "muted",
         className:
-          "hover:bg-muted-3 active:bg-muted-4 fill-muted-11 text-muted-11",
+          "fill-muted-11 text-muted-11 hover:bg-muted-3 active:bg-muted-4",
       },
       {
         variant: "solid",
         tone: "destructive",
         className:
-          "hover:bg-destructive-10 bg-destructive-9 hover:shadow-destructive-12 fill-white text-white",
+          "bg-destructive-9 fill-white text-white hover:bg-destructive-10 hover:shadow-destructive-12",
       },
       {
         variant: "soft",
         tone: "destructive",
         className:
-          "hover:bg-destructive-4 bg-destructive-3 active:bg-destructive-5 fill-destructive-11 text-destructive-11",
+          "bg-destructive-3 fill-destructive-11 text-destructive-11 hover:bg-destructive-4 active:bg-destructive-5",
       },
       {
         variant: "ghost",
         tone: "destructive",
         className:
-          "hover:bg-destructive-3 active:bg-destructive-4 fill-destructive-11 text-destructive-11",
+          "fill-destructive-11 text-destructive-11 hover:bg-destructive-3 active:bg-destructive-4",
       },
 
       {

@@ -2,6 +2,16 @@ import { type Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
 import tailwindCssAnimate from "tailwindcss-animate";
 
+function getRadixColors(name: string) {
+  return [...Array(12).keys()].reduce(
+    (colors, i) => {
+      colors[i + 1] = `hsl(var(--${name}-${i + 1}) / <alpha-value>)`;
+      return colors;
+    },
+    {} as Record<number, string>,
+  );
+}
+
 export default {
   content: ["./src/**/*.tsx"],
   darkMode: ["class"],
@@ -26,76 +36,19 @@ export default {
         "2xl": "10px 10px",
       },
       colors: {
-        primary: {
-          1: "hsl(var(--primary-1) / <alpha-value>)",
-          2: "hsl(var(--primary-2) / <alpha-value>)",
-          3: "hsl(var(--primary-3) / <alpha-value>)",
-          4: "hsl(var(--primary-4) / <alpha-value>)",
-          5: "hsl(var(--primary-5) / <alpha-value>)",
-          6: "hsl(var(--primary-6) / <alpha-value>)",
-          7: "hsl(var(--primary-7) / <alpha-value>)",
-          8: "hsl(var(--primary-8) / <alpha-value>)",
-          9: "hsl(var(--primary-9) / <alpha-value>)",
-          10: "hsl(var(--primary-10) / <alpha-value>)",
-          11: "hsl(var(--primary-11) / <alpha-value>)",
-          12: "hsl(var(--primary-12) / <alpha-value>)",
-        },
-        secondary: {
-          1: "hsl(var(--secondary-1) / <alpha-value>)",
-          2: "hsl(var(--secondary-2) / <alpha-value>)",
-          3: "hsl(var(--secondary-3) / <alpha-value>)",
-          4: "hsl(var(--secondary-4) / <alpha-value>)",
-          5: "hsl(var(--secondary-5) / <alpha-value>)",
-          6: "hsl(var(--secondary-6) / <alpha-value>)",
-          7: "hsl(var(--secondary-7) / <alpha-value>)",
-          8: "hsl(var(--secondary-8) / <alpha-value>)",
-          9: "hsl(var(--secondary-9) / <alpha-value>)",
-          10: "hsl(var(--secondary-10) / <alpha-value>)",
-          11: "hsl(var(--secondary-11) / <alpha-value>)",
-          12: "hsl(var(--secondary-12) / <alpha-value>)",
-        },
-        accent: {
-          1: "hsl(var(--accent-1) / <alpha-value>)",
-          2: "hsl(var(--accent-2) / <alpha-value>)",
-          3: "hsl(var(--accent-3) / <alpha-value>)",
-          4: "hsl(var(--accent-4) / <alpha-value>)",
-          5: "hsl(var(--accent-5) / <alpha-value>)",
-          6: "hsl(var(--accent-6) / <alpha-value>)",
-          7: "hsl(var(--accent-7) / <alpha-value>)",
-          8: "hsl(var(--accent-8) / <alpha-value>)",
-          9: "hsl(var(--accent-9) / <alpha-value>)",
-          10: "hsl(var(--accent-10) / <alpha-value>)",
-          11: "hsl(var(--accent-11) / <alpha-value>)",
-          12: "hsl(var(--accent-12) / <alpha-value>)",
-        },
-        muted: {
-          1: "hsl(var(--muted-1) / <alpha-value>)",
-          2: "hsl(var(--muted-2) / <alpha-value>)",
-          3: "hsl(var(--muted-3) / <alpha-value>)",
-          4: "hsl(var(--muted-4) / <alpha-value>)",
-          5: "hsl(var(--muted-5) / <alpha-value>)",
-          6: "hsl(var(--muted-6) / <alpha-value>)",
-          7: "hsl(var(--muted-7) / <alpha-value>)",
-          8: "hsl(var(--muted-8) / <alpha-value>)",
-          9: "hsl(var(--muted-9) / <alpha-value>)",
-          10: "hsl(var(--muted-10) / <alpha-value>)",
-          11: "hsl(var(--muted-11) / <alpha-value>)",
-          12: "hsl(var(--muted-12) / <alpha-value>)",
-        },
-        destructive: {
-          1: "hsl(var(--destructive-1) / <alpha-value>)",
-          2: "hsl(var(--destructive-2) / <alpha-value>)",
-          3: "hsl(var(--destructive-3) / <alpha-value>)",
-          4: "hsl(var(--destructive-4) / <alpha-value>)",
-          5: "hsl(var(--destructive-5) / <alpha-value>)",
-          6: "hsl(var(--destructive-6) / <alpha-value>)",
-          7: "hsl(var(--destructive-7) / <alpha-value>)",
-          8: "hsl(var(--destructive-8) / <alpha-value>)",
-          9: "hsl(var(--destructive-9) / <alpha-value>)",
-          10: "hsl(var(--destructive-10) / <alpha-value>)",
-          11: "hsl(var(--destructive-11) / <alpha-value>)",
-          12: "hsl(var(--destructive-12) / <alpha-value>)",
-        },
+        primary: getRadixColors("amber"),
+        secondary: getRadixColors("lime"),
+        accent: getRadixColors("sky"),
+        muted: getRadixColors("sand"),
+        destructive: getRadixColors("red"),
+      },
+      saturate: {
+        75: "0.75",
+        90: "0.9",
+        95: "0.95",
+        105: "1.05",
+        110: "1.1",
+        125: "1.25",
       },
       keyframes: {
         "accordion-down": {
