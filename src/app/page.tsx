@@ -4,8 +4,6 @@ import { ThemeToggle } from "~/components/theme-toggle";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 
 export default function HomePage() {
-  const tone = "accent";
-
   return (
     <main className="to-secondary-2 flex min-h-screen flex-col items-center justify-center bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-white dark:from-black">
       <div className="flex flex-col items-center justify-center gap-12 px-4 py-16">
