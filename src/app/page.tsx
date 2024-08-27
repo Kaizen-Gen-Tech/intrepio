@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 
 export default function HomePage() {
   return (
-    <main className="to-secondary-2 flex min-h-screen flex-col items-center justify-center bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-white dark:from-black">
+    <main className="to-secondary-3 dark:to-secondary-3 flex min-h-screen flex-col items-center justify-center bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-white dark:from-black">
       <div className="flex flex-col items-center justify-center gap-12 px-4 py-16">
         <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
           Create <span className="text-primary-9">T3</span> App
@@ -21,10 +21,10 @@ export default function HomePage() {
           >
             <Card className="hover:bg-accent-3 max-w-xs transition">
               <CardHeader>
-                <CardTitle className="font-bold">First Steps →</CardTitle>
+                <CardTitle>First Steps →</CardTitle>
               </CardHeader>
 
-              <CardContent className="text-lg">
+              <CardContent>
                 Just the basics - Everything you need to know to set up your
                 database and authentication.
               </CardContent>
@@ -38,10 +38,10 @@ export default function HomePage() {
           >
             <Card className="hover:bg-accent-3 max-w-xs transition">
               <CardHeader>
-                <CardTitle className="font-bold">Documentation →</CardTitle>
+                <CardTitle>Documentation →</CardTitle>
               </CardHeader>
 
-              <CardContent className="text-lg">
+              <CardContent>
                 Learn more about Create T3 App, the libraries it uses, and how
                 to deploy it.
               </CardContent>
