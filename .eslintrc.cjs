@@ -9,6 +9,7 @@ const config = {
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked",
+    "plugin:tailwindcss/recommended",
   ],
   rules: {
     "@typescript-eslint/array-type": "off",
@@ -47,6 +48,11 @@ const config = {
         drizzleObjectName: ["db", "ctx.db"],
       },
     ],
+  },
+  settings: {
+    tailwindcss: {
+      callees: ["classnames", "cva", "cn"],
+    },
   },
 };
 module.exports = config;

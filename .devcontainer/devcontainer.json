@@ -5,6 +5,7 @@
   "workspaceMount": "source=${localEnv:HOME}/code,target=/code,type=bind,consistency=cached",
   "workspaceFolder": "/code/${localWorkspaceFolderBasename}",
   "postAttachCommand": "pnpm install",
+  "forwardPorts": [3000, 43214],
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "configureZshAsDefaultShell": "true"

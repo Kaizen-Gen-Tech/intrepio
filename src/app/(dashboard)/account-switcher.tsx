@@ -2,7 +2,6 @@
 
 import * as React from "react";
 
-import { cn } from "~/lib/utils";
 import {
   Select,
   SelectContent,
@@ -10,20 +9,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import { accounts } from "./data";
 
-interface AccountSwitcherProps {
-  isCollapsed: boolean;
-  accounts: {
-    label: string;
-    email: string;
-    icon: React.ReactNode;
-  }[];
-}
-
-export function AccountSwitcher({
-  isCollapsed,
-  accounts,
-}: AccountSwitcherProps) {
+export function AccountSwitcher() {
   const [selectedAccount, setSelectedAccount] = React.useState<string>(
     accounts[0]?.email ?? "",
   );
@@ -31,16 +19,12 @@ export function AccountSwitcher({
   return (
     <Select defaultValue={selectedAccount} onValueChange={setSelectedAccount}>
       <SelectTrigger
-        className={cn(
-          "flex items-center gap-2 [&>span>svg]:size-5 [&>span>svg]:shrink-0 [&>span]:line-clamp-1 [&>span]:flex [&>span]:w-full [&>span]:items-center [&>span]:gap-1 [&>span]:truncate",
-          isCollapsed &&
-            "flex size-9 shrink-0 items-center justify-center p-0 [&>span]:w-auto [&>svg]:hidden",
-        )}
+        className="flex w-60 items-center gap-2 [&>span>svg]:size-5 [&>span>svg]:shrink-0 [&>span]:line-clamp-1 [&>span]:flex [&>span]:w-full [&>span]:items-center [&>span]:gap-1 [&>span]:truncate"
         aria-label="Select account"
       >
         <SelectValue placeholder="Select an account">
           {accounts.find((account) => account.email === selectedAccount)?.icon}
-          <span className={cn("ml-2", isCollapsed && "hidden")}>
+          <span className="ml-2">
             {
               accounts.find((account) => account.email === selectedAccount)
                 ?.label

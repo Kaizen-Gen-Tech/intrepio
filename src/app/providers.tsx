@@ -4,7 +4,7 @@ import { ThemeProvider } from "next-themes";
 
 import { TooltipProvider } from "~/components/ui/tooltip";
 
-export async function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider attribute="class" enableSystem defaultTheme="system">
       <TooltipProvider>{children}</TooltipProvider>

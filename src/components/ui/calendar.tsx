@@ -39,7 +39,7 @@ function Calendar({
           buttonVariants({
             variant: "ghost",
             size: "sm",
-            outline: false,
+            border: false,
             icon: true,
           }),
           "size-9 p-0 font-normal aria-selected:opacity-100",

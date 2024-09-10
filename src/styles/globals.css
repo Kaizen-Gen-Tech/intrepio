@@ -1,6 +1,6 @@
 @import "hsl-radix-colors/amber.css";
-@import "hsl-radix-colors/sky.css";
 @import "hsl-radix-colors/lime.css";
+@import "hsl-radix-colors/blue.css";
 @import "hsl-radix-colors/sand.css";
 @import "hsl-radix-colors/red.css";
 
@@ -10,12 +10,13 @@
 
 @layer base {
   * {
-    @apply border-muted-11;
+    @apply border-muted-10;
   }
   body {
     @apply bg-muted-1 text-muted-12;
+    @apply bg-[radial-gradient(circle_at_calc(50%+2.5rem)_5rem,_var(--tw-gradient-stops))] from-transparent to-secondary-4 bg-no-repeat;
   }
   .focusable {
-    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-7 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-7 focus-visible:ring-offset-2 focus-visible:ring-offset-muted-1;
   }
 }

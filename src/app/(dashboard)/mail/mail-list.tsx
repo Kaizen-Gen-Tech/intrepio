@@ -4,6 +4,7 @@ import { formatDistanceToNow } from "date-fns";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { type Mail } from "./data";
+import { cn } from "~/lib/utils";
 
 interface MailListProps {
   items: Mail[];
@@ -17,13 +18,15 @@ export function MailList({
   setSelectedMail,
 }: MailListProps) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 p-4">
       {items.map((item) => (
         <Button
           key={item.id}
-          variant={selectedMail === item.id ? "soft" : "ghost"}
-          tone="muted"
-          className="size-[unset] flex-col items-start gap-2 text-wrap text-left"
+          variant="soft"
+          tone={selectedMail === item.id ? "primary" : "muted"}
+          className={cn(
+            "size-[unset] flex-col items-start gap-2 text-wrap text-left",
+          )}
           onClick={() => setSelectedMail(item.id)}
         >
           <div className="flex w-full flex-col gap-1">
@@ -31,11 +34,11 @@ export function MailList({
               <div className="flex items-center gap-2">
                 <div className="font-semibold">{item.name}</div>
                 {!item.read && (
-                  <span className="flex size-3 rounded-full bg-accent-9" />
+                  <span className="flex size-2 rounded-full bg-accent-9" />
                 )}
               </div>
 
-              <div className="text-sm">
+              <div className="text-sm" suppressHydrationWarning>
                 {formatDistanceToNow(new Date(item.date), {
                   addSuffix: true,
                 })}
