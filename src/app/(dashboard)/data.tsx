@@ -1,3 +1,9 @@
+export type Account = {
+  label: string;
+  email: string;
+  icon: React.ReactNode;
+};
+
 export const accounts = [
   {
     label: "Alicia Koch",
@@ -36,5 +42,3 @@ export const accounts = [
     ),
   },
 ];
-
-export type Account = (typeof accounts)[number];

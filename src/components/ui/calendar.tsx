@@ -2,19 +2,17 @@
 
 import * as React from "react";
 import { DayPicker } from "react-day-picker";
-import { CaretLeft, CaretRight } from "@phosphor-icons/react/dist/ssr";
+import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 
 import { cn } from "~/lib/utils";
 import { buttonVariants } from "~/components/ui/button";
-
-export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
 function Calendar({
   className,
   classNames,
   showOutsideDays = true,
   ...props
-}: CalendarProps) {
+}: React.ComponentProps<typeof DayPicker>) {
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}

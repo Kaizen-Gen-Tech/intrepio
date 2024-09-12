@@ -23,8 +23,9 @@ import {
   CaretRight,
   CaretDoubleLeft,
   CaretDoubleRight,
-} from "@phosphor-icons/react/dist/ssr";
+} from "@phosphor-icons/react";
 
+import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
 import { FacetedFilter } from "~/components/ui/data-table/faceted-filter";
 import {
@@ -34,6 +35,7 @@ import {
   DropdownMenuContent,
 } from "~/components/ui/dropdown-menu";
 import { Input } from "~/components/ui/input";
+import { ScrollArea } from "~/components/ui/scroll-area";
 import {
   Select,
   SelectContent,
@@ -52,18 +54,14 @@ import {
 } from "~/components/ui/table";
 
 import { priorities, statuses } from "./data";
-import { ScrollArea } from "~/components/ui/scroll-area";
-import { cn } from "~/lib/utils";
-
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-}
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+}: {
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+}) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});

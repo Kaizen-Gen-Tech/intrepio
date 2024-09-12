@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+
 import { accounts } from "./data";
 
 export function AccountSwitcher() {

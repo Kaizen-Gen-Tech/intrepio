@@ -1,33 +1,32 @@
-import {
-  CaretDown,
-  CaretUp,
-  CaretUpDown,
-  NumberSquareEight,
-  NumberSquareFive,
-  NumberSquareFour,
-  NumberSquareNine,
-  NumberSquareOne,
-  NumberSquareSeven,
-  NumberSquareSix,
-  NumberSquareThree,
-  NumberSquareTwo,
-} from "@phosphor-icons/react/dist/ssr";
+"use client";
+
 import { type Column } from "@tanstack/react-table";
+import {
+  CaretUp,
+  CaretDown,
+  CaretUpDown,
+  NumberSquareOne,
+  NumberSquareTwo,
+  NumberSquareThree,
+  NumberSquareFour,
+  NumberSquareFive,
+  NumberSquareSix,
+  NumberSquareSeven,
+  NumberSquareEight,
+  NumberSquareNine,
+} from "@phosphor-icons/react";
 
 import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
-
-interface ColumnHeaderProps<TData, TValue>
-  extends React.HTMLAttributes<HTMLDivElement> {
-  column: Column<TData, TValue>;
-  title: string;
-}
 
 export function ColumnHeader<TData, TValue>({
   column,
   title,
   className,
-}: ColumnHeaderProps<TData, TValue>) {
+}: React.HTMLAttributes<HTMLDivElement> & {
+  column: Column<TData, TValue>;
+  title: string;
+}) {
   const canSort = column.getCanSort();
   const isSorted = column.getIsSorted();
   const sortIndex = column.getSortIndex();
@@ -67,10 +66,10 @@ export function ColumnHeader<TData, TValue>({
           <NumberSquareNine weight="fill" className="size-5" />
         ) : null}
 
-        {isSorted === "desc" ? (
-          <CaretDown weight="fill" className="size-4" />
-        ) : isSorted === "asc" ? (
+        {isSorted === "asc" ? (
           <CaretUp weight="fill" className="size-4" />
+        ) : isSorted === "desc" ? (
+          <CaretDown weight="fill" className="size-4" />
         ) : (
           <CaretUpDown weight="fill" className="size-5" />
         )}

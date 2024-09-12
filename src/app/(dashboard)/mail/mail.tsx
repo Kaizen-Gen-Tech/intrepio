@@ -11,16 +11,18 @@ import {
 } from "~/components/ui/resizable";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+
 import { MailDisplay, MailDisplayMobile } from "./mail-display";
 import { MailList } from "./mail-list";
 import { type Mail } from "./data";
 
-interface MailProps {
+export function Mail({
+  mails,
+  defaultLayout = [50, 50],
+}: {
   mails: Mail[];
   defaultLayout?: number[];
-}
-
-export function Mail({ mails, defaultLayout = [50, 50] }: MailProps) {
+}) {
   const [selectedId, setSelectedId] = React.useState<Mail["id"]>();
   const selectedMail = React.useMemo(() => {
     return mails.find((item) => item.id === selectedId);
@@ -76,7 +78,8 @@ function MailTabs({
   mails,
   selectedMail,
   setSelectedMail,
-}: MailProps & {
+}: {
+  mails: Mail[];
   selectedMail?: string;
   setSelectedMail: React.Dispatch<React.SetStateAction<typeof selectedMail>>;
 }) {

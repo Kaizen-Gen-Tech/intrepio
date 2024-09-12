@@ -1,22 +1,21 @@
-import { type ComponentProps } from "react";
+import * as React from "react";
 import { formatDistanceToNow } from "date-fns";
 
+import { cn } from "~/lib/utils";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
-import { type Mail } from "./data";
-import { cn } from "~/lib/utils";
 
-interface MailListProps {
-  items: Mail[];
-  selectedMail: string | undefined;
-  setSelectedMail: React.Dispatch<React.SetStateAction<string | undefined>>;
-}
+import { type Mail } from "./data";
 
 export function MailList({
   items,
   selectedMail,
   setSelectedMail,
-}: MailListProps) {
+}: {
+  items: Mail[];
+  selectedMail: string | undefined;
+  setSelectedMail: React.Dispatch<React.SetStateAction<string | undefined>>;
+}) {
   return (
     <div className="flex flex-col gap-4 p-4">
       {items.map((item) => (
@@ -71,7 +70,7 @@ export function MailList({
 
 function getBadgeVariantFromLabel(
   label: string,
-): ComponentProps<typeof Badge>["variant"] {
+): React.ComponentProps<typeof Badge>["variant"] {
   if (["work"].includes(label.toLowerCase())) {
     return "primary";
   }

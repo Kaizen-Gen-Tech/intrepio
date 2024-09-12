@@ -2,8 +2,9 @@
 
 import * as React from "react";
 import { useTheme } from "next-themes";
-import { Moon, Sun } from "@phosphor-icons/react/dist/ssr";
+import { Moon, Sun } from "@phosphor-icons/react";
 
+import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
 import {
   DropdownMenu,
@@ -12,7 +13,6 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { cn } from "~/lib/utils";
 
 export function ThemeToggle({ className }: { className?: string }) {
   const { setTheme, theme } = useTheme();

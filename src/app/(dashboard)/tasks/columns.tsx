@@ -1,11 +1,12 @@
 "use client";
 
 import { type ColumnDef } from "@tanstack/react-table";
-import { Backspace, Command, DotsThree } from "@phosphor-icons/react/dist/ssr";
+import { Backspace, Command, DotsThree } from "@phosphor-icons/react";
 
 import { Badge, type BadgeProps } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
+import { ColumnHeader } from "~/components/ui/data-table/column-header";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,10 +20,8 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { ColumnHeader } from "~/components/ui/data-table/column-header";
 
-import { labels, priorities, statuses } from "./data";
-import { type Task } from "./schema";
+import { type Task, labels, priorities, statuses } from "./data";
 
 export const columns: ColumnDef<Task>[] = [
   {

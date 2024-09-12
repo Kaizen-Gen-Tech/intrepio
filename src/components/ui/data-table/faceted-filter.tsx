@@ -1,6 +1,8 @@
+"use client";
+
 import * as React from "react";
 import { type Column } from "@tanstack/react-table";
-import { PlusCircle } from "@phosphor-icons/react/dist/ssr";
+import { PlusCircle } from "@phosphor-icons/react";
 
 import { cn } from "~/lib/utils";
 import { Badge } from "~/components/ui/badge";
@@ -20,7 +22,11 @@ import {
   PopoverTrigger,
 } from "~/components/ui/popover";
 
-interface FacetedFilterProps<TData, TValue> {
+export function FacetedFilter<TData, TValue>({
+  column,
+  title,
+  options,
+}: {
   column?: Column<TData, TValue>;
   title?: string;
   options: {
@@ -28,13 +34,7 @@ interface FacetedFilterProps<TData, TValue> {
     value: string;
     icon?: React.ComponentType<{ className?: string }>;
   }[];
-}
-
-export function FacetedFilter<TData, TValue>({
-  column,
-  title,
-  options,
-}: FacetedFilterProps<TData, TValue>) {
+}) {
   const facets = column?.getFacetedUniqueValues();
   const selectedValues = new Set(column?.getFilterValue() as string[]);
 

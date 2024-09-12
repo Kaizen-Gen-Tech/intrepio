@@ -1,3 +1,5 @@
+"use client";
+
 import { addDays, addHours, format, nextSaturday } from "date-fns";
 import {
   Archive,
@@ -8,7 +10,7 @@ import {
   ArrowBendUpLeft,
   ArrowBendDoubleUpLeft,
   Trash,
-} from "@phosphor-icons/react/dist/ssr";
+} from "@phosphor-icons/react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
@@ -34,13 +36,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
+
 import { type Mail } from "./data";
 
-interface MailDisplayProps {
-  mail?: Mail;
-}
-
-export function MailDisplay({ mail }: MailDisplayProps) {
+export function MailDisplay({ mail }: { mail?: Mail }) {
   return (
     <div className="flex h-full flex-col">
       <MailMenu disabled={!mail} />
@@ -112,7 +111,7 @@ export function MailDisplay({ mail }: MailDisplayProps) {
   );
 }
 
-export function MailDisplayMobile({ mail }: Required<MailDisplayProps>) {
+export function MailDisplayMobile({ mail }: { mail: Mail }) {
   return (
     <div className="flex h-full flex-col">
       <div className="flex flex-1 flex-col" key={mail.id}>

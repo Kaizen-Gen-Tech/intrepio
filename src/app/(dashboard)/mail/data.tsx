@@ -1,4 +1,20 @@
-export const mails = [
+export type Mail = {
+  id: string;
+  name: string;
+  email: string;
+  subject: string;
+  text: string;
+  date: string;
+  read: boolean;
+  labels: string[];
+};
+
+export type Contact = {
+  name: string;
+  email: string;
+};
+
+export const mails: Mail[] = [
   {
     id: "6c84fb90-12c4-11e1-840d-7b25c5ee775a",
     name: "William Smith",
@@ -171,9 +187,7 @@ export const mails = [
   },
 ];
 
-export type Mail = (typeof mails)[number];
-
-export const contacts = [
+export const contacts: Contact[] = [
   {
     name: "Emma Johnson",
     email: "emma.johnson@example.com",
@@ -255,5 +269,3 @@ export const contacts = [
     email: "scarlett.adams@example.com",
   },
 ];
-
-export type Contact = (typeof contacts)[number];

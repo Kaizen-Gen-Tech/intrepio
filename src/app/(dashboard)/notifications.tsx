@@ -1,8 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { Bell, X } from "@phosphor-icons/react/dist/ssr";
+import { Bell, X } from "@phosphor-icons/react";
 
+import { cn } from "~/lib/utils";
 import { Alert, AlertTitle, AlertDescription } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
 import {
@@ -12,7 +13,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "~/components/ui/sheet";
-import { cn } from "~/lib/utils";
 
 export function Notifications() {
   const [alerts, setAlerts] = React.useState([

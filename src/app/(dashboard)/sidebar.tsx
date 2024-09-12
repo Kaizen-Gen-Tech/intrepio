@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import {
   List,
   ArrowLineRight,
@@ -11,12 +11,13 @@ import {
   ClipboardText,
   ProjectorScreenChart,
   Gear,
-} from "@phosphor-icons/react/dist/ssr";
+} from "@phosphor-icons/react";
 
 import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
-import { ThemeToggle } from "~/components/theme-toggle";
+
+import { ThemeToggle } from "./theme-toggle";
 
 const sidebarItems = [
   { name: "Dashboard", href: "/", icon: Layout },
