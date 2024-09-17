@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 
-import { accounts } from "./data";
+import { accounts } from "~/server/db/accounts";
 
 export function AccountSwitcher() {
   const [selectedAccount, setSelectedAccount] = React.useState<string>(
@@ -20,7 +20,7 @@ export function AccountSwitcher() {
   return (
     <Select defaultValue={selectedAccount} onValueChange={setSelectedAccount}>
       <SelectTrigger
-        className="flex w-60 items-center gap-2 [&>span>svg]:size-5 [&>span>svg]:shrink-0 [&>span]:line-clamp-1 [&>span]:flex [&>span]:w-full [&>span]:items-center [&>span]:gap-1 [&>span]:truncate"
+        className="flex w-40 items-center gap-2 md:w-60 [&>span>svg]:size-5 [&>span>svg]:shrink-0 [&>span]:line-clamp-1 [&>span]:flex [&>span]:w-full [&>span]:items-center [&>span]:gap-1 [&>span]:truncate"
         aria-label="Select account"
       >
         <SelectValue placeholder="Select an account">
@@ -33,6 +33,7 @@ export function AccountSwitcher() {
           </span>
         </SelectValue>
       </SelectTrigger>
+
       <SelectContent>
         {accounts.map((account) => (
           <SelectItem key={account.email} value={account.email}>

@@ -14,26 +14,10 @@ import {
   SheetTrigger,
 } from "~/components/ui/sheet";
 
+import { notifications } from "~/server/db/notifications";
+
 export function Notifications() {
-  const [alerts, setAlerts] = React.useState([
-    {
-      title: "Notification 1",
-      description: "This is the first notification.",
-    },
-    {
-      title: "Notification 2",
-      description: "This is the second notification.",
-    },
-    {
-      title: "Notification 3",
-      description: "This is the third notification.",
-    },
-    {
-      title: "Notification 4",
-      description: "This is the fourth notification.",
-      destructive: true,
-    },
-  ]);
+  const [alerts, setAlerts] = React.useState(notifications);
 
   return (
     <Sheet>
@@ -66,7 +50,7 @@ export function Notifications() {
             >
               <Button
                 className={cn(
-                  "focusable absolute right-0 top-0 !shadow-none",
+                  "absolute right-0 top-0 !shadow-none",
                   alert.destructive
                     ? "hover:text-destructive-12"
                     : "hover:text-muted-12",

@@ -9,7 +9,7 @@ import {
   Layout,
   Envelope,
   ClipboardText,
-  ProjectorScreenChart,
+  TerminalWindow,
   Gear,
 } from "@phosphor-icons/react";
 
@@ -20,10 +20,10 @@ import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
 import { ThemeToggle } from "./theme-toggle";
 
 const sidebarItems = [
-  { name: "Dashboard", href: "/", icon: Layout },
+  { name: "Dashboard", href: "/dashboard", icon: Layout },
   { name: "Mail", href: "/mail", icon: Envelope },
   { name: "Tasks", href: "/tasks", icon: ClipboardText },
-  { name: "Reports", href: "/reports", icon: ProjectorScreenChart },
+  { name: "Playground", href: "/playground", icon: TerminalWindow },
   { name: "Settings", href: "/settings", icon: Gear },
 ];
 
@@ -45,7 +45,7 @@ export function Sidebar() {
         >
           <ArrowLineRight
             className={cn(
-              "size-5 transition-transform duration-300",
+              "size-5 transition duration-200",
               isSidebarOpen && "-scale-x-100",
             )}
           />
@@ -93,7 +93,7 @@ function SidebarInternal({
         <Button
           key={item.name}
           asChild
-          variant={pathname === item.href ? "solid" : "ghost"}
+          variant={pathname.startsWith(item.href) ? "solid" : "ghost"}
           icon={!isSidebarOpen}
           className={cn(
             "justify-start text-sm xl:text-base",

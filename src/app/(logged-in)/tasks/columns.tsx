@@ -21,7 +21,7 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 
-import { type Task, labels, priorities, statuses } from "./data";
+import { type Task, labels, priorities, statuses } from "~/server/db/tasks";
 
 export const columns: ColumnDef<Task>[] = [
   {
@@ -68,7 +68,7 @@ export const columns: ColumnDef<Task>[] = [
       return (
         <div className="flex min-w-96 gap-2 p-2">
           {label && (
-            <Badge variant={label.variant as BadgeProps["variant"]} outline>
+            <Badge variant={label.variant as BadgeProps["variant"]}>
               {label.label}
             </Badge>
           )}

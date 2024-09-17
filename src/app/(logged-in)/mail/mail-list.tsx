@@ -5,7 +5,7 @@ import { cn } from "~/lib/utils";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 
-import { type Mail } from "./data";
+import { type Mail } from "~/server/db/mail";
 
 export function MailList({
   items,
@@ -52,11 +52,7 @@ export function MailList({
           {item.labels.length ? (
             <div className="flex items-center gap-2">
               {item.labels.map((label) => (
-                <Badge
-                  key={label}
-                  variant={getBadgeVariantFromLabel(label)}
-                  outline
-                >
+                <Badge key={label} variant={getBadgeVariantFromLabel(label)}>
                   {label}
                 </Badge>
               ))}

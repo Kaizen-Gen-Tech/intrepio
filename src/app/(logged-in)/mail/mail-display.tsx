@@ -37,14 +37,14 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip";
 
-import { type Mail } from "./data";
+import { type Mail } from "~/server/db/mail";
 
 export function MailDisplay({ mail }: { mail?: Mail }) {
   return (
     <div className="flex h-full flex-col">
-      <MailMenu disabled={!mail} />
-
-      <Separator />
+      <div className="flex h-14 items-center justify-center border-b-2 bg-muted-1">
+        <MailMenu disabled={!mail} />
+      </div>
 
       {mail ? (
         <div className="flex flex-1 flex-col" key={mail.id}>
@@ -114,7 +114,7 @@ export function MailDisplay({ mail }: { mail?: Mail }) {
 export function MailDisplayMobile({ mail }: { mail: Mail }) {
   return (
     <div className="flex h-full flex-col">
-      <div className="flex flex-1 flex-col" key={mail.id}>
+      <div className="flex flex-1 flex-col divide-y-2" key={mail.id}>
         <div className="flex shrink-0 flex-col bg-muted-1">
           <div className="flex justify-between p-4">
             <div className="flex gap-4 text-sm">
@@ -144,19 +144,15 @@ export function MailDisplayMobile({ mail }: { mail: Mail }) {
           </div>
         </div>
 
-        <Separator />
-
         <div className="h-0 grow overflow-hidden">
           <ScrollArea type="auto">
             <div className="whitespace-pre-wrap p-4 text-sm">{mail.text}</div>
           </ScrollArea>
         </div>
 
-        <Separator />
-
-        <MailMenu />
-
-        <Separator />
+        <div className="h-14">
+          <MailMenu />
+        </div>
 
         <form className="shrink-0 bg-muted-1 p-4">
           <div className="grid gap-4">
@@ -183,7 +179,7 @@ function MailMenu({ disabled }: { disabled?: boolean }) {
   const today = new Date();
 
   return (
-    <div className="flex items-center justify-between bg-muted-1 p-2">
+    <div className="flex size-full items-center justify-between">
       <div className="flex items-center gap-2">
         <Tooltip delayDuration={0}>
           <TooltipTrigger asChild>

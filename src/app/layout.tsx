@@ -5,7 +5,6 @@ import { GeistMono } from "geist/font/mono";
 
 import { env } from "~/env";
 import { cn } from "~/lib/utils";
-
 import { Providers } from "./providers";
 
 import "~/styles/globals.css";

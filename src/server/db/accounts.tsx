@@ -4,7 +4,7 @@ export type Account = {
   icon: React.ReactNode;
 };
 
-export const accounts = [
+export const accounts: Account[] = [
   {
     label: "Alicia Koch",
     email: "alicia@example.com",

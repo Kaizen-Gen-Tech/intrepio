@@ -54,16 +54,12 @@ export function FacetedFilter<TData, TValue>({
 
           {selectedValues?.size > 0 && (
             <>
-              <Badge variant="muted" outline className="px-1.5 lg:hidden">
+              <Badge variant="muted" className="px-1.5 lg:hidden">
                 {selectedValues.size}
               </Badge>
 
               {selectedValues.size > 2 ? (
-                <Badge
-                  variant="muted"
-                  outline
-                  className="hidden lg:inline-flex"
-                >
+                <Badge variant="muted" className="hidden lg:inline-flex">
                   {selectedValues.size} selected
                 </Badge>
               ) : (
@@ -73,7 +69,6 @@ export function FacetedFilter<TData, TValue>({
                     <Badge
                       key={option.value}
                       variant="muted"
-                      outline
                       className="hidden lg:inline-flex"
                     >
                       {option.label}

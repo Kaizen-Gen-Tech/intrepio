@@ -16,7 +16,10 @@
     @apply bg-muted-1 text-muted-12;
     @apply bg-[radial-gradient(circle_at_calc(50%+2.5rem)_5rem,_var(--tw-gradient-stops))] from-transparent to-secondary-4 bg-no-repeat;
   }
-  .focusable {
-    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-7 focus-visible:ring-offset-2 focus-visible:ring-offset-muted-1;
+  .focused {
+    @apply outline-none ring-2 ring-accent-7 ring-offset-2 ring-offset-muted-1;
+  }
+  .disabled {
+    @apply pointer-events-none cursor-not-allowed opacity-50;
   }
 }
