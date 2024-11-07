@@ -1,4 +1,5 @@
 import { createEnv } from "@t3-oss/env-nextjs";
+import { vercel } from "@t3-oss/env-core/presets";
 import { z } from "zod";
 
 export const env = createEnv({
@@ -10,10 +11,7 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
-    VERCEL_ENV: z
-      .enum(["development", "preview", "production"])
-      .default("development"),
-    DATABASE_URL: z.string().url(),
+    POSTGRES_URL: z.string(),
   },
 
   /**
@@ -31,8 +29,7 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
-    VERCEL_ENV: process.env.VERCEL_ENV,
-    DATABASE_URL: process.env.DATABASE_URL,
+    POSTGRES_URL: process.env.POSTGRES_URL,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**
@@ -45,4 +42,5 @@ export const env = createEnv({
    * `SOME_VAR=''` will throw an error.
    */
   emptyStringAsUndefined: true,
+  extends: [vercel()],
 });
