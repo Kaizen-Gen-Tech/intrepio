@@ -67,7 +67,7 @@ export default function Page() {
           </div>
         }
       >
-        <div className="flex size-full flex-col lg:flex-row lg:items-start lg:gap-8 lg:pl-4">
+        <main className="flex size-full flex-col lg:flex-row lg:items-start lg:gap-8 lg:pl-4">
           <aside className="flex flex-col gap-4 border-b-2 p-4 lg:w-1/5 lg:pl-0">
             <TabsList className="lg:hidden">
               {Object.entries(tabs).map(([key, t]) => (
@@ -97,7 +97,7 @@ export default function Page() {
               </ScrollArea>
             </TabsContent>
           ))}
-        </div>
+        </main>
       </PageWithHeader>
     </Tabs>
   );

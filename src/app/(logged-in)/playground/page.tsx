@@ -26,6 +26,10 @@ import {
 import { PageWithHeader } from "~/components/page-with-header";
 import { Settings } from "./settings";
 
+export const metadata = {
+  title: "Playground",
+};
+
 export default async function Page() {
   return (
     <PageWithHeader
@@ -49,8 +53,8 @@ export default async function Page() {
                 </DrawerDescription>
               </DrawerHeader>
 
-              <ScrollArea verticalScrollClassName="border-t-2" type="auto">
-                <div className="p-4 pt-0">
+              <ScrollArea className="border-t-2" type="auto">
+                <div className="p-4">
                   <Settings />
                 </div>
               </ScrollArea>
@@ -59,9 +63,9 @@ export default async function Page() {
         </div>
       }
     >
-      <div className="flex size-full flex-col">
+      <main className="flex size-full flex-col">
         <div className="w-full flex-1">
-          <main className="grid size-full gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid size-full gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3">
             <div className="hidden md:block">
               <Settings />
             </div>
@@ -114,9 +118,9 @@ export default async function Page() {
                 </div>
               </form>
             </div>
-          </main>
+          </div>
         </div>
-      </div>
+      </main>
     </PageWithHeader>
   );
 }

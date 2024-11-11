@@ -30,7 +30,7 @@ const ScrollArea = React.forwardRef<
       )}
       {...props}
     >
-      <ScrollAreaPrimitive.Viewport className="!block size-full" asChild>
+      <ScrollAreaPrimitive.Viewport className="!block size-full">
         {children}
       </ScrollAreaPrimitive.Viewport>
 

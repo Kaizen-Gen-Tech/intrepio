@@ -120,7 +120,7 @@ export function DataTable<TData, TValue>({
         </>
       }
     >
-      <div className="flex size-full flex-col gap-4 p-4">
+      <main className="flex size-full flex-col gap-4 p-4">
         <div className="flex items-center justify-between gap-4">
           <div className="flex flex-1 items-center gap-4">
             {table.getColumn("status") && (
@@ -356,7 +356,7 @@ export function DataTable<TData, TValue>({
             </Select>
           </div>
         </div>
-      </div>
+      </main>
     </PageWithHeader>
   );
 }

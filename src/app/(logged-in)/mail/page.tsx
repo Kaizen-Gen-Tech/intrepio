@@ -2,6 +2,10 @@ import { cookies } from "next/headers";
 
 import { Mail } from "./mail";
 
+export const metadata = {
+  title: "Mail",
+};
+
 export default async function Page() {
   const layout = cookies().get("react-resizable-panels:layout:mail");
 

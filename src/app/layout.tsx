@@ -1,4 +1,3 @@
-import { type Metadata } from "next";
 import { VercelToolbar } from "@vercel/toolbar/next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
@@ -9,8 +8,11 @@ import { Providers } from "./providers";
 
 import "~/styles/globals.css";
 
-export const metadata: Metadata = {
-  title: "INT.REP.IO",
+export const metadata = {
+  title: {
+    default: "Intrepio",
+    template: "%s | Intrepio",
+  },
 };
 
 export default async function Layout({

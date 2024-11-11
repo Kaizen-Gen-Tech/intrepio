@@ -11,6 +11,8 @@ import {
   ClipboardText,
   TerminalWindow,
   Gear,
+  House,
+  CloudArrowUp,
 } from "@phosphor-icons/react";
 
 import { cn } from "~/lib/utils";
@@ -20,6 +22,8 @@ import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
 import { ThemeToggle } from "./theme-toggle";
 
 const sidebarItems = [
+  { name: "Home", href: "/", icon: House },
+  { name: "Upload", href: "/upload", icon: CloudArrowUp },
   { name: "Dashboard", href: "/dashboard", icon: Layout },
   { name: "Mail", href: "/mail", icon: Envelope },
   { name: "Tasks", href: "/tasks", icon: ClipboardText },
@@ -93,7 +97,7 @@ function SidebarInternal({
         <Button
           key={item.name}
           asChild
-          variant={pathname.startsWith(item.href) ? "solid" : "ghost"}
+          variant={pathname === item.href ? "solid" : "ghost"}
           icon={!isSidebarOpen}
           className={cn(
             "justify-start text-sm xl:text-base",

@@ -10,6 +10,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { PageWithHeader } from "~/components/page-with-header";
 
+export const metadata = {
+  title: "Dashboard",
+};
+
 export default async function Page() {
   return (
     <PageWithHeader

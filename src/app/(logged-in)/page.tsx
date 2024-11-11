@@ -3,9 +3,9 @@ import { PageWithHeader } from "~/components/page-with-header";
 export default async function Page() {
   return (
     <PageWithHeader
-      headerChildren={<h1 className="text-2xl font-semibold">INT.REP.IO</h1>}
+      headerChildren={<h1 className="text-2xl font-semibold">Intrepio</h1>}
     >
-      <div className="p-4">Default Page</div>
+      <main className="p-4">Default Page</main>
     </PageWithHeader>
   );
 }

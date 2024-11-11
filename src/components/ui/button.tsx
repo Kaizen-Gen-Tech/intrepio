@@ -34,6 +34,7 @@ const buttonVariants = cva(
         false: "whitespace-nowrap",
       },
       size: {
+        xs: "text-xs hover:shadow-sm",
         sm: "text-sm hover:shadow-sm",
         md: "text-base hover:shadow-md",
         lg: "text-lg hover:shadow-lg",
@@ -150,6 +151,11 @@ const buttonVariants = cva(
 
       {
         icon: true,
+        size: "xs",
+        className: "p-0.5",
+      },
+      {
+        icon: true,
         size: "sm",
         className: "p-1",
       },
@@ -166,6 +172,11 @@ const buttonVariants = cva(
 
       {
         flex: false,
+        size: "xs",
+        className: "h-6",
+      },
+      {
+        flex: false,
         size: "sm",
         className: "h-8",
       },
@@ -180,6 +191,12 @@ const buttonVariants = cva(
         className: "h-12",
       },
 
+      {
+        icon: false,
+        flex: false,
+        size: "xs",
+        className: "px-1.5 py-0.5",
+      },
       {
         icon: false,
         flex: false,

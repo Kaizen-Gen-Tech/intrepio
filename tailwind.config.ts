@@ -1,6 +1,7 @@
 import { type Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
 import tailwindCssAnimate from "tailwindcss-animate";
+import tailwindContainerQueries from "@tailwindcss/container-queries";
 
 function getRadixColors(name: string) {
   return [...Array(12).keys()].reduce(
@@ -73,5 +74,5 @@ export default {
       },
     },
   },
-  plugins: [tailwindCssAnimate],
+  plugins: [tailwindCssAnimate, tailwindContainerQueries],
 } satisfies Config;
