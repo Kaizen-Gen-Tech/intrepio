@@ -30,7 +30,7 @@ export function Mail({
   }, [selectedId]);
 
   return (
-    <Tabs defaultValue="all" className="flex h-full flex-col">
+    <Tabs defaultValue="all">
       <PageWithHeader
         headerChildren={
           <div
@@ -43,7 +43,7 @@ export function Mail({
           </div>
         }
       >
-        <main>
+        <main className="h-full">
           {useBreakpoint("lg").isAboveLg ? (
             <ResizablePanelGroup
               direction="horizontal"

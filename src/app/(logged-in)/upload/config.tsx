@@ -69,17 +69,17 @@ export function Config() {
   }
 
   return (
-    <form className="flex size-full flex-col gap-6">
+    <form className="flex size-full flex-col gap-4">
       <Upload />
 
-      <Card className="@container">
+      <Card className="@container/config">
         <CardHeader className="py-2">
           <CardTitle className="text-base font-medium">
             <legend>Configuration</legend>
           </CardTitle>
         </CardHeader>
 
-        <CardContent className="flex flex-col gap-4 @md:flex-row">
+        <CardContent className="flex flex-col gap-4 @md/config:flex-row">
           <div className="flex flex-1 flex-col-reverse gap-2">
             <Switch
               id="upscale"

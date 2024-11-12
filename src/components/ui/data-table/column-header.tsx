@@ -21,18 +21,16 @@ import { Button } from "~/components/ui/button";
 
 export function ColumnHeader<TData, TValue>({
   column,
-  title,
   className,
 }: React.HTMLAttributes<HTMLDivElement> & {
   column: Column<TData, TValue>;
-  title: string;
 }) {
   const canSort = column.getCanSort();
   const isSorted = column.getIsSorted();
   const sortIndex = column.getSortIndex();
 
   if (!canSort) {
-    return <div className={cn("p-2", className)}>{title}</div>;
+    return <div className={cn("p-2", className)}>{column.id}</div>;
   }
 
   return (
@@ -43,7 +41,7 @@ export function ColumnHeader<TData, TValue>({
       onClick={column.getToggleSortingHandler()}
       border={false}
     >
-      {title}
+      {column.id}
 
       <div className="flex items-center gap-1">
         {sortIndex === 0 ? (

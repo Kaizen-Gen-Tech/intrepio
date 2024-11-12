@@ -24,35 +24,37 @@ import {
 
 export function FacetedFilter<TData, TValue>({
   column,
-  title,
   options,
 }: {
   column?: Column<TData, TValue>;
-  title?: string;
   options: {
     label: string;
     value: string;
     icon?: React.ComponentType<{ className?: string }>;
   }[];
 }) {
-  const facets = column?.getFacetedUniqueValues();
-  const selectedValues = new Set(column?.getFilterValue() as string[]);
+  if (column === undefined) {
+    return null;
+  }
+
+  const facets = column.getFacetedUniqueValues();
+  const selectedValues = new Set(column.getFilterValue() as string[]);
 
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          variant={selectedValues?.size > 0 ? "soft" : "ghost"}
+          variant={selectedValues.size > 0 ? "soft" : "ghost"}
           size="sm"
           className={cn(
             "gap-0.5 pl-1 pr-0.5",
-            selectedValues?.size === 0 && "bg-muted-1",
+            selectedValues.size === 0 && "bg-muted-1",
           )}
         >
           <PlusCircle className="mr-0.5 size-5" />
-          <span className="pr-1.5">{title}</span>
+          <span className="pr-1.5">{column.id}</span>
 
-          {selectedValues?.size > 0 && (
+          {selectedValues.size > 0 && (
             <>
               <Badge variant="muted" className="px-1.5 lg:hidden">
                 {selectedValues.size}
@@ -99,7 +101,7 @@ export function FacetedFilter<TData, TValue>({
                         selectedValues.add(option.value);
                       }
                       const filterValues = Array.from(selectedValues);
-                      column?.setFilterValue(
+                      column.setFilterValue(
                         filterValues.length ? filterValues : undefined,
                       );
                     }}
@@ -108,7 +110,7 @@ export function FacetedFilter<TData, TValue>({
 
                     {option.icon && <option.icon className="size-5" />}
                     <span className="flex-1">{option.label}</span>
-                    {facets?.get(option.value) && (
+                    {facets.get(option.value) && (
                       <span className="pl-4 font-mono text-xs">
                         {facets.get(option.value)}
                       </span>
@@ -122,7 +124,7 @@ export function FacetedFilter<TData, TValue>({
                   <CommandSeparator />
 
                   <CommandItem
-                    onSelect={() => column?.setFilterValue(undefined)}
+                    onSelect={() => column.setFilterValue(undefined)}
                   >
                     <span className="flex-1 text-center">Clear filter</span>
                   </CommandItem>

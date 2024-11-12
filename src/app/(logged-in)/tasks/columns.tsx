@@ -25,7 +25,7 @@ import { type Task, labels, priorities, statuses } from "~/server/db/tasks";
 
 export const columns: ColumnDef<Task>[] = [
   {
-    id: "select",
+    id: "Select",
     header: ({ table }) => (
       <div className="flex items-center justify-center p-2">
         <Checkbox
@@ -51,17 +51,19 @@ export const columns: ColumnDef<Task>[] = [
     enableHiding: false,
   },
   {
+    id: "Task",
     accessorKey: "id",
-    header: ({ column }) => <ColumnHeader column={column} title="Task" />,
+    header: ({ column }) => <ColumnHeader column={column} />,
     cell: ({ row }) => (
-      <span className="text-nowrap p-2">{row.getValue("id")}</span>
+      <span className="text-nowrap p-2">{row.original.id}</span>
     ),
     enableSorting: false,
     enableHiding: false,
   },
   {
+    id: "Title",
     accessorKey: "title",
-    header: ({ column }) => <ColumnHeader column={column} title="Title" />,
+    header: ({ column }) => <ColumnHeader column={column} />,
     cell: ({ row }) => {
       const label = labels.find((label) => label.value === row.original.label);
 
@@ -72,19 +74,18 @@ export const columns: ColumnDef<Task>[] = [
               {label.label}
             </Badge>
           )}
-          <span className="line-clamp-1 font-medium">
-            {row.getValue("title")}
-          </span>
+          <span className="line-clamp-1 font-medium">{row.original.title}</span>
         </div>
       );
     },
   },
   {
+    id: "Status",
     accessorKey: "status",
-    header: ({ column }) => <ColumnHeader column={column} title="Status" />,
+    header: ({ column }) => <ColumnHeader column={column} />,
     cell: ({ row }) => {
       const status = statuses.find(
-        (status) => status.value === row.getValue("status"),
+        (status) => status.value === row.original.status,
       );
 
       if (!status) {
@@ -99,15 +100,16 @@ export const columns: ColumnDef<Task>[] = [
       );
     },
     filterFn: (row, id, value) => {
-      return (value as string).includes(row.getValue("status"));
+      return (value as string).includes(row.original.status);
     },
   },
   {
+    id: "Priority",
     accessorKey: "priority",
-    header: ({ column }) => <ColumnHeader column={column} title="Priority" />,
+    header: ({ column }) => <ColumnHeader column={column} />,
     cell: ({ row }) => {
       const priority = priorities.find(
-        (priority) => priority.value === row.getValue("priority"),
+        (priority) => priority.value === row.original.priority,
       );
 
       if (!priority) {
@@ -122,11 +124,11 @@ export const columns: ColumnDef<Task>[] = [
       );
     },
     filterFn: (row, id, value) => {
-      return (value as string).includes(row.getValue("priority"));
+      return (value as string).includes(row.original.priority);
     },
   },
   {
-    id: "actions",
+    id: "Actions",
     cell: ({ row }) => (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
