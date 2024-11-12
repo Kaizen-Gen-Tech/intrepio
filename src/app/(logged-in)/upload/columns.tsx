@@ -6,6 +6,7 @@ import { filesize } from "filesize";
 import { toast } from "sonner";
 import { Trash } from "@phosphor-icons/react";
 
+import { normalizeOptions } from "~/lib/enums";
 import { Button } from "~/components/ui/button";
 import { ColumnHeader } from "~/components/ui/data-table/column-header";
 import {
@@ -28,8 +29,8 @@ export const columns: ColumnDef<
     id: "Name",
     accessorKey: "name",
     header: ({ column }) => <ColumnHeader column={column} />,
-    cell: ({ getValue }) => (
-      <span className="text-nowrap p-2">{getValue() as string}</span>
+    cell: ({ row }) => (
+      <span className="text-nowrap p-2">{row.original.name}</span>
     ),
     enableHiding: false,
   },
@@ -37,26 +38,49 @@ export const columns: ColumnDef<
     id: "Type",
     accessorKey: "metadata.mimetype",
     header: ({ column }) => <ColumnHeader column={column} />,
-    cell: ({ getValue }) => (
-      <span className="text-nowrap p-2">{getValue() as string}</span>
+    cell: ({ row }) => (
+      <span className="text-nowrap p-2">{row.original.metadata.mimetype}</span>
     ),
   },
   {
     id: "Size",
     accessorKey: "metadata.size",
     header: ({ column }) => <ColumnHeader column={column} />,
-    cell: ({ getValue }) => (
+    cell: ({ row }) => (
       <span className="text-nowrap p-2">
-        {filesize(getValue() as number, { base: 2 })}
+        {filesize(row.original.metadata.size, { base: 2 })}
       </span>
     ),
+  },
+  {
+    id: "Upscaled",
+    accessorKey: "user_metadata.upscale",
+    header: ({ column }) => <ColumnHeader column={column} />,
+    cell: ({ row }) => (
+      <span className="text-nowrap p-2">
+        {row.original.user_metadata.upscale ? "Yes" : "No"}
+      </span>
+    ),
+  },
+  {
+    id: "Normalized",
+    accessorKey: "user_metadata.normalize",
+    header: ({ column }) => <ColumnHeader column={column} />,
+    cell: ({ row }) => {
+      const opt = normalizeOptions.find(
+        (opt) => opt.value == row.original.user_metadata.normalize,
+      );
+
+      return <span className="text-nowrap p-2">{opt?.label}</span>;
+    },
   },
   {
     id: "Uploaded",
     accessorKey: "updated_at",
     header: ({ column }) => <ColumnHeader column={column} />,
-    cell: ({ getValue }) => {
-      const inst = moment(getValue() as string);
+    cell: ({ row }) => {
+      const inst = moment(row.original.updated_at);
+
       return (
         <Tooltip>
           <TooltipTrigger className="cursor-help text-nowrap p-2 underline decoration-dotted underline-offset-4">

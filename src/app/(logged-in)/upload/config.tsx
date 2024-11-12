@@ -8,6 +8,7 @@ import { CloudArrowUp } from "@phosphor-icons/react/dist/ssr";
 
 import { env } from "~/env";
 import { cn } from "~/lib/utils";
+import { normalizeOptions } from "~/lib/enums";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
@@ -27,7 +28,7 @@ export function Config() {
   const [disabled, setDisabled] = React.useState(false);
   const [filesToUpload, setFilesToUpload] = React.useState<File[]>([]);
   const [upscale, setUpscale] = React.useState(false);
-  const [normalize, setNormalize] = React.useState("0");
+  const [normalize, setNormalize] = React.useState(normalizeOptions[0]!.value);
 
   async function upload() {
     setDisabled(true);
@@ -48,6 +49,10 @@ export function Config() {
         .from("upload")
         .upload(file.name, file, {
           cacheControl: "0",
+          metadata: {
+            upscale,
+            normalize,
+          },
         });
 
       if (error) {
@@ -104,10 +109,11 @@ export function Config() {
               </SelectTrigger>
 
               <SelectContent>
-                <SelectItem value="0">Off</SelectItem>
-                <SelectItem value="1">Configuration 1</SelectItem>
-                <SelectItem value="2">Configuration 2</SelectItem>
-                <SelectItem value="3">Configuration 3</SelectItem>
+                {normalizeOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
 
