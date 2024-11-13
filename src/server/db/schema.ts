@@ -8,9 +8,21 @@ import {
   smallint,
   smallserial,
   text,
+  uuid,
 } from "drizzle-orm/pg-core";
 
 // #region Enums
+export const normalize_vals = [
+  "Off",
+  "Configuration 1",
+  "Configuration 2",
+  "Configuration 3",
+] as const;
+export type Normalize = (typeof normalize_vals)[number];
+export const normalize_enum = pgEnum("normalize", normalize_vals);
+export const upload_status_vals = ["Processing", "Done", "Error"] as const;
+export type UploadStatus = (typeof upload_status_vals)[number];
+export const upload_status_enum = pgEnum("upload_status", upload_status_vals);
 export const race_enum = pgEnum("race", [
   "AfricanAmerican",
   "Asian",
@@ -73,6 +85,12 @@ export const admission_sources = pgTable("admission_source", {
 // #endregion
 
 // #region Data tables
+export const files = pgTable("file", {
+  id: uuid("id").primaryKey(),
+  upscale: boolean("upscale").notNull(),
+  normalize: normalize_enum("normalize").notNull(),
+  status: upload_status_enum("status").notNull(),
+});
 export const encounters = pgTable("encounter", {
   id: serial("id").primaryKey(),
   encounter_id: integer("encounter_id").notNull(),

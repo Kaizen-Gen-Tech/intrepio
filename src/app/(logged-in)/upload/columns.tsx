@@ -6,7 +6,6 @@ import { filesize } from "filesize";
 import { toast } from "sonner";
 import { Trash } from "@phosphor-icons/react";
 
-import { normalizeOptions } from "~/lib/enums";
 import { Button } from "~/components/ui/button";
 import { ColumnHeader } from "~/components/ui/data-table/column-header";
 import {
@@ -48,7 +47,7 @@ export const columns: ColumnDef<
     header: ({ column }) => <ColumnHeader column={column} />,
     cell: ({ row }) => (
       <span className="text-nowrap p-2">
-        {filesize(row.original.metadata.size, { base: 2 })}
+        {filesize(row.original.metadata.size as number, { base: 2 })}
       </span>
     ),
   },
@@ -58,7 +57,7 @@ export const columns: ColumnDef<
     header: ({ column }) => <ColumnHeader column={column} />,
     cell: ({ row }) => (
       <span className="text-nowrap p-2">
-        {row.original.user_metadata.upscale ? "Yes" : "No"}
+        {row.original.upscale ? "Yes" : "No"}
       </span>
     ),
   },
@@ -66,13 +65,17 @@ export const columns: ColumnDef<
     id: "Normalized",
     accessorKey: "user_metadata.normalize",
     header: ({ column }) => <ColumnHeader column={column} />,
-    cell: ({ row }) => {
-      const opt = normalizeOptions.find(
-        (opt) => opt.value == row.original.user_metadata.normalize,
-      );
-
-      return <span className="text-nowrap p-2">{opt?.label}</span>;
-    },
+    cell: ({ row }) => (
+      <span className="text-nowrap p-2">{row.original.normalize}</span>
+    ),
+  },
+  {
+    id: "Status",
+    accessorKey: "user_metadata.status",
+    header: ({ column }) => <ColumnHeader column={column} />,
+    cell: ({ row }) => (
+      <span className="text-nowrap p-2">{row.original.status}</span>
+    ),
   },
   {
     id: "Uploaded",
@@ -100,7 +103,7 @@ export const columns: ColumnDef<
         size="sm"
         icon
         onClick={() => {
-          toast.promise(deleteFile(row.original.name), {
+          toast.promise(deleteFile(row.original.id, row.original.name), {
             loading: `Deleting ${row.original.name}...`,
           });
         }}

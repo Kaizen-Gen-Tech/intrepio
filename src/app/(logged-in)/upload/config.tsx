@@ -8,7 +8,7 @@ import { CloudArrowUp } from "@phosphor-icons/react/dist/ssr";
 
 import { env } from "~/env";
 import { cn } from "~/lib/utils";
-import { normalizeOptions } from "~/lib/enums";
+import { type Normalize, normalize_vals } from "~/server/db/schema";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
@@ -22,13 +22,13 @@ import {
 } from "~/components/ui/select";
 import { Switch } from "~/components/ui/switch";
 
-import { refreshFiles } from "./actions";
+import { createFile, updateStatus } from "./actions";
 
 export function Config() {
   const [disabled, setDisabled] = React.useState(false);
   const [filesToUpload, setFilesToUpload] = React.useState<File[]>([]);
   const [upscale, setUpscale] = React.useState(false);
-  const [normalize, setNormalize] = React.useState(normalizeOptions[0]!.value);
+  const [normalize, setNormalize] = React.useState<Normalize>("Off");
 
   async function upload() {
     setDisabled(true);
@@ -45,14 +45,10 @@ export function Config() {
         id: toastId,
       });
 
-      const { error } = await db.storage
+      const { data, error } = await db.storage
         .from("upload")
         .upload(file.name, file, {
           cacheControl: "0",
-          metadata: {
-            upscale,
-            normalize,
-          },
         });
 
       if (error) {
@@ -61,7 +57,12 @@ export function Config() {
           id: toastId,
         });
       } else {
-        void refreshFiles();
+        toast.loading(`Processing ${file.name}...`, {
+          id: toastId,
+        });
+        await createFile(data.id, upscale, normalize);
+        await new Promise((resolve) => setTimeout(resolve, 10000));
+        await updateStatus(data.id, "Done");
       }
     }
 
@@ -101,7 +102,7 @@ export function Config() {
           <div className="flex flex-1 flex-col-reverse gap-2">
             <Select
               value={normalize}
-              onValueChange={(value) => setNormalize(value)}
+              onValueChange={(value) => setNormalize(value as Normalize)}
               disabled={disabled}
             >
               <SelectTrigger id="normalize">
@@ -109,9 +110,9 @@ export function Config() {
               </SelectTrigger>
 
               <SelectContent>
-                {normalizeOptions.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
+                {normalize_vals.map((val) => (
+                  <SelectItem key={val} value={val}>
+                    {val}
                   </SelectItem>
                 ))}
               </SelectContent>
