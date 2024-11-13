@@ -7,45 +7,25 @@ import { cn } from "~/lib/utils";
 
 const ScrollArea = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root> & {
-    horizontalScrollClassName?: string;
-    verticalScrollClassName?: string;
-  }
->(
-  (
-    {
+  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root>
+>(({ className, children, ...props }, ref) => (
+  <ScrollAreaPrimitive.Root
+    ref={ref}
+    className={cn(
+      "group size-full overflow-hidden [&:has([data-orientation=horizontal])]:pb-4 [&:has([data-orientation=vertical])]:pr-4",
       className,
-      horizontalScrollClassName,
-      verticalScrollClassName,
-      children,
-      ...props
-    },
-    ref,
-  ) => (
-    <ScrollAreaPrimitive.Root
-      ref={ref}
-      className={cn(
-        "group size-full overflow-hidden [&:has([data-orientation=horizontal])]:pb-4 [&:has([data-orientation=vertical])]:pr-4",
-        className,
-      )}
-      {...props}
-    >
-      <ScrollAreaPrimitive.Viewport className="!block size-full">
-        {children}
-      </ScrollAreaPrimitive.Viewport>
+    )}
+    {...props}
+  >
+    <ScrollAreaPrimitive.Viewport className="size-full rounded-[inherit]">
+      {children}
+    </ScrollAreaPrimitive.Viewport>
 
-      <ScrollAreaScrollbar
-        orientation="horizontal"
-        className={horizontalScrollClassName}
-      />
-      <ScrollAreaScrollbar
-        orientation="vertical"
-        className={verticalScrollClassName}
-      />
-      <ScrollAreaPrimitive.Corner className="z-10 bg-muted-1 outline outline-2 outline-muted-10" />
-    </ScrollAreaPrimitive.Root>
-  ),
-);
+    <ScrollAreaScrollbar orientation="horizontal" />
+    <ScrollAreaScrollbar orientation="vertical" />
+    <ScrollAreaPrimitive.Corner className="z-10 bg-muted-1 outline outline-2 outline-muted-10" />
+  </ScrollAreaPrimitive.Root>
+));
 ScrollArea.displayName = ScrollAreaPrimitive.Root.displayName;
 
 const ScrollAreaScrollbar = React.forwardRef<

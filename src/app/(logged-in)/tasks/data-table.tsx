@@ -106,14 +106,14 @@ export function DataTable<TData, TValue>({
               placeholder="Filter..."
               className={cn(
                 "pl-9",
-                ((table.getColumn("title")?.getFilterValue() as string) ?? "")
+                ((table.getColumn("Title")?.getFilterValue() as string) ?? "")
                   .length > 0 && "bg-primary-3",
               )}
               value={
-                (table.getColumn("title")?.getFilterValue() as string) ?? ""
+                (table.getColumn("Title")?.getFilterValue() as string) ?? ""
               }
               onChange={(event) =>
-                table.getColumn("title")?.setFilterValue(event.target.value)
+                table.getColumn("Title")?.setFilterValue(event.target.value)
               }
             />
           </div>
@@ -123,21 +123,14 @@ export function DataTable<TData, TValue>({
       <main className="flex size-full flex-col gap-4 p-4">
         <div className="flex items-center justify-between gap-4">
           <div className="flex flex-1 items-center gap-4">
-            {table.getColumn("status") && (
-              <FacetedFilter
-                column={table.getColumn("status")}
-                title="Status"
-                options={statuses}
-              />
-            )}
-
-            {table.getColumn("priority") && (
-              <FacetedFilter
-                column={table.getColumn("priority")}
-                title="Priority"
-                options={priorities}
-              />
-            )}
+            <FacetedFilter
+              column={table.getColumn("Status")}
+              options={statuses}
+            />
+            <FacetedFilter
+              column={table.getColumn("Priority")}
+              options={priorities}
+            />
 
             {table.getState().columnFilters.length > 0 && (
               <Button
@@ -176,11 +169,8 @@ export function DataTable<TData, TValue>({
                   return (
                     <DropdownMenuCheckboxItem
                       key={column.id}
-                      className="capitalize"
                       checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
+                      onCheckedChange={column.toggleVisibility}
                     >
                       {column.id}
                     </DropdownMenuCheckboxItem>
@@ -222,34 +212,36 @@ export function DataTable<TData, TValue>({
                 ))}
               </TableHeader>
 
-              {table.getRowModel().rows?.length > 0 ? (
-                <TableBody>
-                  {table.getRowModel().rows.map((row) => (
-                    <TableRow
-                      key={row.id}
-                      data-state={row.getIsSelected() && "selected"}
+              <TableBody>
+                {table.getRowModel().rows?.length > 0 ? (
+                  <>
+                    {table.getRowModel().rows.map((row) => (
+                      <TableRow
+                        key={row.id}
+                        data-state={row.getIsSelected() && "selected"}
+                      >
+                        {row.getVisibleCells().map((cell) => (
+                          <TableCell key={cell.id} className="px-1 py-2">
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext(),
+                            )}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ))}
+                  </>
+                ) : (
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      className="text-center text-lg text-muted-10"
                     >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id} className="px-1 py-2">
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  ))}
-                </TableBody>
-              ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="text-center text-lg text-muted-10"
-                  >
-                    No results
-                  </TableCell>
-                </TableRow>
-              )}
+                      No results
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
             </Table>
           </ScrollArea>
         </div>

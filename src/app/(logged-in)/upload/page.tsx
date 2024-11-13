@@ -12,8 +12,9 @@ import {
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { PageWithHeader } from "~/components/page-with-header";
 
+import { columns } from "./columns";
+import { DataTable } from "./data-table";
 import { Config } from "./config";
-import { File } from "./file";
 import { getFiles } from "./actions";
 
 export const metadata = {
@@ -45,11 +46,7 @@ export default async function Page() {
                 </DrawerDescription>
               </DrawerHeader>
 
-              <ScrollArea
-                className="border-t-2"
-                verticalScrollClassName="border-t-0"
-                type="auto"
-              >
+              <ScrollArea className="border-t-2" type="auto">
                 <div className="p-4">
                   <Config />
                 </div>
@@ -59,21 +56,13 @@ export default async function Page() {
         </div>
       }
     >
-      <main className="flex size-full flex-col">
-        <div className="w-full flex-1">
-          <div className="grid size-full gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3">
-            <div className="hidden md:block">
-              <Config />
-            </div>
+      <main className="flex size-full gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="hidden md:block md:w-1/2 lg:w-1/3">
+          <Config />
+        </div>
 
-            <div className="flex h-full flex-col border-2 bg-muted-3 p-4 shadow-lg lg:col-span-2">
-              {files.map((file) => (
-                <div key={file.id}>
-                  <File file={file} />
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="w-full md:w-1/2 lg:w-2/3">
+          <DataTable columns={columns} data={files} />
         </div>
       </main>
     </PageWithHeader>

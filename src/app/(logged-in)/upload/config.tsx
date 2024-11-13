@@ -8,6 +8,7 @@ import { CloudArrowUp } from "@phosphor-icons/react/dist/ssr";
 
 import { env } from "~/env";
 import { cn } from "~/lib/utils";
+import { type Normalize, normalize_vals } from "~/server/db/schema";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
@@ -21,13 +22,13 @@ import {
 } from "~/components/ui/select";
 import { Switch } from "~/components/ui/switch";
 
-import { refreshFiles } from "./actions";
+import { createFile, updateStatus } from "./actions";
 
 export function Config() {
   const [disabled, setDisabled] = React.useState(false);
   const [filesToUpload, setFilesToUpload] = React.useState<File[]>([]);
   const [upscale, setUpscale] = React.useState(false);
-  const [normalize, setNormalize] = React.useState("0");
+  const [normalize, setNormalize] = React.useState<Normalize>("Off");
 
   async function upload() {
     setDisabled(true);
@@ -44,7 +45,7 @@ export function Config() {
         id: toastId,
       });
 
-      const { error } = await db.storage
+      const { data, error } = await db.storage
         .from("upload")
         .upload(file.name, file, {
           cacheControl: "0",
@@ -56,7 +57,12 @@ export function Config() {
           id: toastId,
         });
       } else {
-        void refreshFiles();
+        toast.loading(`Processing ${file.name}...`, {
+          id: toastId,
+        });
+        await createFile(data.id, upscale, normalize);
+        await new Promise((resolve) => setTimeout(resolve, 10000));
+        await updateStatus(data.id, "Done");
       }
     }
 
@@ -69,17 +75,17 @@ export function Config() {
   }
 
   return (
-    <form className="flex size-full flex-col gap-6">
+    <form className="flex size-full flex-col gap-4">
       <Upload />
 
-      <Card className="@container">
+      <Card className="@container/config">
         <CardHeader className="py-2">
           <CardTitle className="text-base font-medium">
             <legend>Configuration</legend>
           </CardTitle>
         </CardHeader>
 
-        <CardContent className="flex flex-col gap-4 @md:flex-row">
+        <CardContent className="flex flex-col gap-4 @md/config:flex-row">
           <div className="flex flex-1 flex-col-reverse gap-2">
             <Switch
               id="upscale"
@@ -96,7 +102,7 @@ export function Config() {
           <div className="flex flex-1 flex-col-reverse gap-2">
             <Select
               value={normalize}
-              onValueChange={(value) => setNormalize(value)}
+              onValueChange={(value) => setNormalize(value as Normalize)}
               disabled={disabled}
             >
               <SelectTrigger id="normalize">
@@ -104,10 +110,11 @@ export function Config() {
               </SelectTrigger>
 
               <SelectContent>
-                <SelectItem value="0">Off</SelectItem>
-                <SelectItem value="1">Configuration 1</SelectItem>
-                <SelectItem value="2">Configuration 2</SelectItem>
-                <SelectItem value="3">Configuration 3</SelectItem>
+                {normalize_vals.map((val) => (
+                  <SelectItem key={val} value={val}>
+                    {val}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
 
