@@ -51,6 +51,7 @@ export default function Page() {
       defaultValue="profile"
       value={currentTab}
       onValueChange={(value) => setCurrentTab(value as keyof typeof tabs)}
+      asChild
     >
       <PageWithHeader
         headerChildren={

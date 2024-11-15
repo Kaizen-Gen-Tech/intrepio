@@ -12,7 +12,7 @@ export function PageWithHeader({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-dvh max-w-full flex-1">
+    <div className="flex-1 overflow-hidden">
       <header className="flex h-20 shrink-0 items-center justify-between gap-4 border-b-2 bg-muted-1 p-4">
         <div className="flex items-center gap-4 lg:hidden">
           <MobileSidebar />

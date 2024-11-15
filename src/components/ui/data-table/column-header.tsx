@@ -30,7 +30,7 @@ export function ColumnHeader<TData, TValue>({
   const sortIndex = column.getSortIndex();
 
   if (!canSort) {
-    return <div className={cn("p-2", className)}>{column.id}</div>;
+    return <div className={cn("h-8 p-2", className)}>{column.id}</div>;
   }
 
   return (

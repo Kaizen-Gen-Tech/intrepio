@@ -6,12 +6,14 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex h-dvh w-dvw">
-      <div className="hidden lg:block">
-        <Sidebar />
-      </div>
+    <div className="h-dvh w-dvw">
+      <div className="flex size-full">
+        <div className="hidden lg:block">
+          <Sidebar />
+        </div>
 
-      {children}
+        {children}
+      </div>
     </div>
   );
 }

@@ -27,7 +27,7 @@ export function FacetedFilter<TData, TValue>({
   options,
 }: {
   column?: Column<TData, TValue>;
-  options: {
+  options?: {
     label: string;
     value: string;
     icon?: React.ComponentType<{ className?: string }>;
@@ -39,6 +39,13 @@ export function FacetedFilter<TData, TValue>({
 
   const facets = column.getFacetedUniqueValues();
   const selectedValues = new Set(column.getFilterValue() as string[]);
+
+  if (options === undefined) {
+    options = Array.from(facets.keys()).map((e: string) => ({
+      value: e,
+      label: e,
+    }));
+  }
 
   return (
     <Popover>
@@ -84,7 +91,7 @@ export function FacetedFilter<TData, TValue>({
 
       <PopoverContent className="p-0" align="start">
         <Command>
-          <CommandList>
+          <CommandList className="max-h-[calc(var(--radix-popover-content-available-height)-1rem)]">
             <CommandEmpty>No results found.</CommandEmpty>
 
             <CommandGroup>

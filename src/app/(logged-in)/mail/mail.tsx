@@ -30,7 +30,7 @@ export function Mail({
   }, [selectedId]);
 
   return (
-    <Tabs defaultValue="all">
+    <Tabs defaultValue="all" asChild>
       <PageWithHeader
         headerChildren={
           <div
