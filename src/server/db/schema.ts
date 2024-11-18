@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   boolean,
   char,
@@ -150,4 +151,18 @@ export const encounters = pgTable("encounter", {
   diabetesMed: boolean("diabetesMed").notNull(),
   readmitted: readmitted_enum("readmitted").notNull(),
 });
+export const encounterRelations = relations(encounters, ({ one }) => ({
+  admission_type: one(admission_types, {
+    fields: [encounters.admission_type_id],
+    references: [admission_types.id],
+  }),
+  discharge_disposition: one(discharge_dispositions, {
+    fields: [encounters.discharge_disposition_id],
+    references: [discharge_dispositions.id],
+  }),
+  admission_source: one(admission_sources, {
+    fields: [encounters.admission_source_id],
+    references: [admission_sources.id],
+  }),
+}));
 // #endregion

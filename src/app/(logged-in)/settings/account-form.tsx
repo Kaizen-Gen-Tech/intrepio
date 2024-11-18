@@ -189,7 +189,7 @@ export function AccountForm() {
                 <PopoverContent className="p-0">
                   <Command>
                     <CommandInput placeholder="Search language..." />
-                    <CommandList>
+                    <CommandList className="max-h-[calc(var(--radix-popover-content-available-height)-4rem)]">
                       <CommandEmpty>No language found.</CommandEmpty>
                       <CommandGroup>
                         {languages.map((language) => (

@@ -1,12 +1,13 @@
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
-
-import { tasks } from "~/server/db/tasks";
+import { getData } from "./actions";
 
 export const metadata = {
-  title: "Tasks",
+  title: "Data",
 };
 
 export default async function Page() {
-  return <DataTable columns={columns} data={tasks} />;
+  const data = await getData();
+
+  return <DataTable columns={columns} data={data} />;
 }

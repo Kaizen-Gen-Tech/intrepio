@@ -7,11 +7,12 @@ import { MagnifyingGlass } from "@phosphor-icons/react";
 
 import { cn } from "~/lib/utils";
 import { Dialog, DialogContent } from "~/components/ui/dialog";
+import { ScrollArea } from "~/components/ui/scroll-area";
 
 const Command = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive>,
   React.ComponentPropsWithoutRef<typeof CommandPrimitive>
->(({ className, ...props }, ref) => (
+>(({ className, children, ...props }, ref) => (
   <CommandPrimitive
     ref={ref}
     className={cn(
@@ -19,7 +20,14 @@ const Command = React.forwardRef<
       className,
     )}
     {...props}
-  />
+  >
+    <ScrollArea
+      type="auto"
+      verticalScrollbarClassName="group-has-[[cmdk-input]]:mt-12"
+    >
+      {children}
+    </ScrollArea>
+  </CommandPrimitive>
 ));
 Command.displayName = CommandPrimitive.displayName;
 
@@ -41,7 +49,10 @@ const CommandInput = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.Input>,
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
 >(({ className, ...props }, ref) => (
-  <div className="flex items-center border-b-2 px-3" cmdk-input-wrapper="">
+  <div
+    className="sticky top-0 z-10 flex h-12 items-center border-b-2 bg-muted-1 px-3"
+    cmdk-input-wrapper=""
+  >
     <MagnifyingGlass className="mr-2 size-5 shrink-0" />
     <CommandPrimitive.Input
       ref={ref}
@@ -56,18 +67,7 @@ const CommandInput = React.forwardRef<
 
 CommandInput.displayName = CommandPrimitive.Input.displayName;
 
-const CommandList = React.forwardRef<
-  React.ElementRef<typeof CommandPrimitive.List>,
-  React.ComponentPropsWithoutRef<typeof CommandPrimitive.List>
->(({ className, ...props }, ref) => (
-  <CommandPrimitive.List
-    ref={ref}
-    className={cn("max-h-80 overflow-y-auto overflow-x-hidden", className)}
-    {...props}
-  />
-));
-
-CommandList.displayName = CommandPrimitive.List.displayName;
+const CommandList = CommandPrimitive.List;
 
 const CommandEmpty = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.Empty>,

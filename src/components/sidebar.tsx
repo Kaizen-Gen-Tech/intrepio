@@ -6,13 +6,12 @@ import Link from "next/link";
 import {
   List,
   ArrowLineRight,
-  Layout,
-  Envelope,
-  ClipboardText,
-  TerminalWindow,
-  Gear,
+  // Envelope,
+  // ClipboardText,
+  // Gear,
   House,
   CloudArrowUp,
+  Table,
 } from "@phosphor-icons/react";
 
 import { cn } from "~/lib/utils";
@@ -23,12 +22,11 @@ import { ThemeToggle } from "./theme-toggle";
 
 const sidebarItems = [
   { name: "Home", href: "/", icon: House },
-  { name: "Upload", href: "/upload", icon: CloudArrowUp },
-  { name: "Dashboard", href: "/dashboard", icon: Layout },
-  { name: "Mail", href: "/mail", icon: Envelope },
-  { name: "Tasks", href: "/tasks", icon: ClipboardText },
-  { name: "Playground", href: "/playground", icon: TerminalWindow },
-  { name: "Settings", href: "/settings", icon: Gear },
+  { name: "EOS Upload", href: "/upload", icon: CloudArrowUp },
+  { name: "EOS Explore", href: "/data", icon: Table },
+  // { name: "Mail", href: "/mail", icon: Envelope },
+  // { name: "Tasks", href: "/tasks", icon: ClipboardText },
+  // { name: "Settings", href: "/settings", icon: Gear },
 ];
 
 export function Sidebar() {

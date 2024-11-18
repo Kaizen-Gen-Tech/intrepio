@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { Trash } from "@phosphor-icons/react";
 
 import { Button } from "~/components/ui/button";
-import { ColumnHeader } from "~/components/ui/data-table/column-header";
+import { Header, Cell } from "~/components/ui/data-table";
 import {
   Tooltip,
   TooltipTrigger,
@@ -27,67 +27,55 @@ export const columns: ColumnDef<
   {
     id: "Name",
     accessorKey: "name",
-    header: ({ column }) => <ColumnHeader column={column} />,
-    cell: ({ row }) => (
-      <span className="text-nowrap p-2">{row.original.name}</span>
-    ),
+    header: ({ column }) => <Header column={column} />,
+    cell: ({ row }) => <Cell>{row.original.name}</Cell>,
     enableHiding: false,
   },
   {
     id: "Type",
     accessorKey: "metadata.mimetype",
-    header: ({ column }) => <ColumnHeader column={column} />,
-    cell: ({ row }) => (
-      <span className="text-nowrap p-2">{row.original.metadata.mimetype}</span>
-    ),
+    header: ({ column }) => <Header column={column} />,
+    cell: ({ row }) => <Cell>{row.original.metadata.mimetype}</Cell>,
   },
   {
     id: "Size",
     accessorKey: "metadata.size",
-    header: ({ column }) => <ColumnHeader column={column} />,
+    header: ({ column }) => <Header column={column} />,
     cell: ({ row }) => (
-      <span className="text-nowrap p-2">
-        {filesize(row.original.metadata.size as number, { base: 2 })}
-      </span>
+      <Cell>{filesize(row.original.metadata.size as number, { base: 2 })}</Cell>
     ),
   },
   {
     id: "Upscaled",
     accessorKey: "user_metadata.upscale",
-    header: ({ column }) => <ColumnHeader column={column} />,
-    cell: ({ row }) => (
-      <span className="text-nowrap p-2">
-        {row.original.upscale ? "Yes" : "No"}
-      </span>
-    ),
+    header: ({ column }) => <Header column={column} />,
+    cell: ({ row }) => <Cell>{row.original.upscale ? "Yes" : "No"}</Cell>,
   },
   {
     id: "Normalized",
     accessorKey: "user_metadata.normalize",
-    header: ({ column }) => <ColumnHeader column={column} />,
-    cell: ({ row }) => (
-      <span className="text-nowrap p-2">{row.original.normalize}</span>
-    ),
+    header: ({ column }) => <Header column={column} />,
+    cell: ({ row }) => <Cell>{row.original.normalize}</Cell>,
   },
   {
     id: "Status",
     accessorKey: "user_metadata.status",
-    header: ({ column }) => <ColumnHeader column={column} />,
-    cell: ({ row }) => (
-      <span className="text-nowrap p-2">{row.original.status}</span>
-    ),
+    header: ({ column }) => <Header column={column} />,
+    cell: ({ row }) => <Cell>{row.original.status}</Cell>,
   },
   {
     id: "Uploaded",
     accessorKey: "updated_at",
-    header: ({ column }) => <ColumnHeader column={column} />,
+    header: ({ column }) => <Header column={column} />,
     cell: ({ row }) => {
       const inst = moment(row.original.updated_at);
 
       return (
         <Tooltip>
-          <TooltipTrigger className="cursor-help text-nowrap p-2 underline decoration-dotted underline-offset-4">
-            {inst.fromNow()}
+          <TooltipTrigger>
+            <Cell className="cursor-help underline decoration-dotted underline-offset-4">
+              {inst.fromNow()}
+            </Cell>
           </TooltipTrigger>
           <TooltipContent>{inst.format("LLL")}</TooltipContent>
         </Tooltip>

@@ -43,6 +43,7 @@ import {
   TableBody,
   TableCell,
   TableHead,
+  TableHeadRow,
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
@@ -115,23 +116,19 @@ export function DataTable<TData, TValue>({
       </DropdownMenu>
 
       <ScrollArea
-        className="flex-1 border-2 bg-muted-1 shadow-lg"
         type="auto"
-        key={JSON.stringify(table.getState())}
+        className="flex-1 border-2 bg-muted-1 shadow-lg"
+        verticalScrollbarClassName="mt-12"
       >
         <Table
           className={cn(table.getRowModel().rows?.length === 0 && "h-full")}
         >
           <TableHeader className="sticky top-0 z-10">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableHeadRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      className="px-1 py-2"
-                    >
+                    <TableHead key={header.id} colSpan={header.colSpan}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -141,7 +138,7 @@ export function DataTable<TData, TValue>({
                     </TableHead>
                   );
                 })}
-              </TableRow>
+              </TableHeadRow>
             ))}
           </TableHeader>
 
@@ -151,7 +148,7 @@ export function DataTable<TData, TValue>({
                 {table.getRowModel().rows.map((row) => (
                   <TableRow key={row.id}>
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id} className="px-1 py-2">
+                      <TableCell key={cell.id}>
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext(),
@@ -177,14 +174,24 @@ export function DataTable<TData, TValue>({
 
       <div className="grid items-center justify-items-center gap-4 @xl/table:grid-cols-3">
         <div className="text-sm text-muted-11 @xl/table:justify-self-start">
-          <span>Page </span>
+          <span>Rows </span>
           <span className="text-muted-12">
-            {table.getState().pagination.pageIndex + 1}
+            {pagination.pageIndex * pagination.pageSize + 1}
           </span>
+          <span> - </span>
+          <span className="text-muted-12">
+            {pagination.pageIndex * pagination.pageSize +
+              table.getRowModel().rows.length}
+          </span>
+          <span> of </span>
+          <span className="text-muted-12">{table.getRowCount()}</span>
+          <span> (page </span>
+          <span className="text-muted-12">{pagination.pageIndex + 1}</span>
           <span> of </span>
           <span className="text-muted-12">
             {Math.max(1, table.getPageCount())}
           </span>
+          <span>)</span>
         </div>
 
         <div className="flex gap-2 @xl/table:justify-self-center">
@@ -243,13 +250,13 @@ export function DataTable<TData, TValue>({
           </Label>
 
           <Select
-            value={`${table.getState().pagination.pageSize}`}
+            value={`${pagination.pageSize}`}
             onValueChange={(value) => {
               table.setPageSize(Number(value));
             }}
           >
             <SelectTrigger id="pageSize">
-              <SelectValue placeholder={table.getState().pagination.pageSize} />
+              <SelectValue placeholder={pagination.pageSize} />
             </SelectTrigger>
 
             <SelectContent side="top">

@@ -28,7 +28,7 @@ export default async function Page() {
     <PageWithHeader
       headerChildren={
         <div className="flex items-center gap-1">
-          <h1 className="text-2xl font-semibold">Upload Data</h1>
+          <h1 className="text-2xl font-semibold text-accent-11">EOS Upload</h1>
 
           <Drawer>
             <DrawerTrigger asChild>
