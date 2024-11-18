@@ -22,8 +22,8 @@ import { ThemeToggle } from "./theme-toggle";
 
 const sidebarItems = [
   { name: "Home", href: "/", icon: House },
-  { name: "Upload", href: "/upload", icon: CloudArrowUp },
-  { name: "Data", href: "/data", icon: Table },
+  { name: "EOS Upload", href: "/upload", icon: CloudArrowUp },
+  { name: "EOS Explore", href: "/data", icon: Table },
   // { name: "Mail", href: "/mail", icon: Envelope },
   // { name: "Tasks", href: "/tasks", icon: ClipboardText },
   // { name: "Settings", href: "/settings", icon: Gear },

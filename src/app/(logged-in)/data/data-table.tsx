@@ -27,8 +27,14 @@ import {
 } from "@phosphor-icons/react";
 
 import { cn } from "~/lib/utils";
+import {
+  age_enum,
+  gender_enum,
+  race_enum,
+  weight_enum,
+} from "~/server/db/schema";
 import { Button } from "~/components/ui/button";
-import { FacetedFilter } from "~/components/ui/data-table/faceted-filter";
+import { FacetedFilter } from "~/components/ui/data-table";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -36,6 +42,7 @@ import {
   DropdownMenuContent,
 } from "~/components/ui/dropdown-menu";
 import { Input } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import {
   Select,
@@ -50,19 +57,13 @@ import {
   TableBody,
   TableCell,
   TableHead,
+  TableHeadRow,
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
 import { PageWithHeader } from "~/components/page-with-header";
-import {
-  age_enum,
-  gender_enum,
-  race_enum,
-  weight_enum,
-} from "~/server/db/schema";
-import { Label } from "~/components/ui/label";
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends { synthetic: boolean }, TValue>({
   columns,
   data,
 }: {
@@ -110,7 +111,7 @@ export function DataTable<TData, TValue>({
     <PageWithHeader
       headerChildren={
         <>
-          <h1 className="text-2xl font-semibold">Data</h1>
+          <h1 className="text-2xl font-semibold text-accent-11">EOS Explore</h1>
 
           <div className="relative hidden md:block">
             <Funnel className="absolute left-2.5 top-2.5 size-5" />
@@ -221,14 +222,10 @@ export function DataTable<TData, TValue>({
           >
             <TableHeader className="sticky top-0 z-10">
               {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
+                <TableHeadRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
                     return (
-                      <TableHead
-                        key={header.id}
-                        colSpan={header.colSpan}
-                        className="px-1 py-2"
-                      >
+                      <TableHead key={header.id} colSpan={header.colSpan}>
                         {header.isPlaceholder
                           ? null
                           : flexRender(
@@ -238,7 +235,7 @@ export function DataTable<TData, TValue>({
                       </TableHead>
                     );
                   })}
-                </TableRow>
+                </TableHeadRow>
               ))}
             </TableHeader>
 
@@ -248,7 +245,7 @@ export function DataTable<TData, TValue>({
                   {table.getRowModel().rows.map((row) => (
                     <TableRow key={row.id}>
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id} className="px-1 py-2">
+                        <TableCell key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext(),
@@ -284,7 +281,13 @@ export function DataTable<TData, TValue>({
                 table.getRowModel().rows.length}
             </span>
             <span> of </span>
-            <span className="text-muted-12">{table.getRowCount()}</span>
+            <span className="text-muted-12">
+              {data.filter((r) => !r.synthetic).length}
+            </span>
+            <span className="text-accent-11"> + </span>
+            <span className="text-accent-11">
+              {data.filter((r) => r.synthetic).length}
+            </span>
             <span> (page </span>
             <span className="text-muted-12">{pagination.pageIndex + 1}</span>
             <span> of </span>

@@ -43,6 +43,7 @@ import {
   TableBody,
   TableCell,
   TableHead,
+  TableHeadRow,
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
@@ -124,14 +125,10 @@ export function DataTable<TData, TValue>({
         >
           <TableHeader className="sticky top-0 z-10">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableHeadRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      className="px-1 py-2"
-                    >
+                    <TableHead key={header.id} colSpan={header.colSpan}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -141,7 +138,7 @@ export function DataTable<TData, TValue>({
                     </TableHead>
                   );
                 })}
-              </TableRow>
+              </TableHeadRow>
             ))}
           </TableHeader>
 
@@ -151,7 +148,7 @@ export function DataTable<TData, TValue>({
                 {table.getRowModel().rows.map((row) => (
                   <TableRow key={row.id}>
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id} className="px-1 py-2">
+                      <TableCell key={cell.id}>
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext(),

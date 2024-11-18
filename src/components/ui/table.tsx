@@ -34,11 +34,7 @@ const TableBody = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
-  <tbody
-    ref={ref}
-    className={cn("bg-muted-3 hover:*:bg-muted-4", className)}
-    {...props}
-  />
+  <tbody ref={ref} className={cn("bg-muted-1", className)} {...props} />
 ));
 TableBody.displayName = "TableBody";
 
@@ -57,15 +53,29 @@ const TableFooter = React.forwardRef<
 ));
 TableFooter.displayName = "TableFooter";
 
-const TableRow = React.forwardRef<
+const TableHeadRow = React.forwardRef<
   HTMLTableRowElement,
   React.HTMLAttributes<HTMLTableRowElement>
 >(({ className, ...props }, ref) => (
+  <tr ref={ref} className={cn("border-b-2", className)} {...props} />
+));
+TableHeadRow.displayName = "TableHeadRow";
+
+const TableRow = React.forwardRef<
+  HTMLTableRowElement,
+  React.HTMLAttributes<HTMLTableRowElement>
+>(({ className, children, ...props }, ref) => (
   <tr
     ref={ref}
-    className={cn("border-b-2 data-[state=selected]:bg-muted-5", className)}
+    className={cn(
+      "group/row relative border-b-2 bg-muted-3 data-[state=selected]:bg-muted-5",
+      className,
+    )}
     {...props}
-  />
+  >
+    {children}
+    <td className="pointer-events-none absolute inset-0 bg-muted-12 opacity-0 group-hover/row:opacity-10" />
+  </tr>
 ));
 TableRow.displayName = "TableRow";
 
@@ -107,6 +117,7 @@ export {
   TableBody,
   TableFooter,
   TableHead,
+  TableHeadRow,
   TableRow,
   TableCell,
   TableCaption,
