@@ -1,6 +1,22 @@
 import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "~/lib/utils";
+
+const headerVariants = cva("flex flex-col gap-2 border-b-2 p-4", {
+  variants: {
+    tone: {
+      primary: "bg-primary-3 text-primary-11",
+      secondary: "bg-secondary-3 text-secondary-11",
+      accent: "bg-accent-3 text-accent-11",
+      muted: "bg-muted-3 text-muted-11",
+      destructive: "bg-destructive-3 text-destructive-11",
+    },
+  },
+  defaultVariants: {
+    tone: "primary",
+  },
+});
 
 const Card = React.forwardRef<
   HTMLDivElement,
@@ -19,14 +35,11 @@ Card.displayName = "Card";
 
 const CardHeader = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+  React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof headerVariants>
+>(({ tone, className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn(
-      "flex flex-col gap-2 border-b-2 bg-primary-9 p-4 dark:text-muted-1",
-      className,
-    )}
+    className={cn(headerVariants({ tone }), className)}
     {...props}
   />
 ));

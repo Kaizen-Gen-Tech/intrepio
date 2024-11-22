@@ -27,7 +27,7 @@ const ScrollArea = React.forwardRef<
       className={cn("group size-full overflow-hidden", className)}
       {...props}
     >
-      <ScrollAreaPrimitive.Viewport className="size-full group-has-[[data-orientation=horizontal]]:pb-4 group-has-[[data-orientation=vertical]]:pr-4">
+      <ScrollAreaPrimitive.Viewport className="size-full group-has-[[data-scrollbar][data-orientation=horizontal]]:pb-4 group-has-[[data-scrollbar][data-orientation=vertical]]:pr-4">
         {children}
       </ScrollAreaPrimitive.Viewport>
 
@@ -54,6 +54,7 @@ function Scrollbar({
 }: React.ComponentProps<typeof ScrollAreaPrimitive.Scrollbar>) {
   return (
     <ScrollAreaPrimitive.ScrollAreaScrollbar
+      data-scrollbar
       className={cn(
         "flex touch-none select-none bg-muted-5 outline outline-2 outline-muted-10",
         className,
