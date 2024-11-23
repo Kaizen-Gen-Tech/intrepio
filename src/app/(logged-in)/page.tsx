@@ -17,7 +17,11 @@ export const metadata = {
 export default async function Page() {
   return (
     <PageWithHeader
-      headerChildren={<h1 className="text-2xl font-semibold">Intrepio</h1>}
+      headerChildren={
+        <h1 className="text-2xl font-semibold text-primary-11">
+          METIS Dashboard
+        </h1>
+      }
     >
       <ScrollArea type="auto">
         <main className="flex flex-col gap-4 p-4">

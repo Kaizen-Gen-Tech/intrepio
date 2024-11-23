@@ -1,4 +1,4 @@
-import { MySidebar } from "~/components/sidebar";
+import { AppSidebar } from "~/components/sidebar";
 
 export default async function Layout({
   children,
@@ -7,7 +7,7 @@ export default async function Layout({
 }) {
   return (
     <div className="flex h-dvh w-dvw overflow-hidden">
-      <MySidebar />
+      <AppSidebar />
       {children}
     </div>
   );

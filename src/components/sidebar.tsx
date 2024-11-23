@@ -4,14 +4,14 @@ import * as React from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
-  Envelope,
-  Gear,
+  // Envelope,
+  // Gear,
   ChartPieSlice,
   CloudArrowUp,
   Table,
+  Circuitry,
 } from "@phosphor-icons/react";
 
-import { ThemeToggle } from "./theme-toggle";
 import {
   Sidebar,
   SidebarContent,
@@ -20,99 +20,77 @@ import {
   SidebarGroupContent,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarSeparator,
-  SidebarGroupAction,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubItem,
   SidebarFooter,
+  SidebarHeader,
 } from "~/components/ui/sidebar";
 
-export function MySidebar() {
+import { ThemeToggle } from "./theme-toggle";
+
+const sidebarItems = [
+  {
+    title: "METIS",
+    children: [{ name: "Dashboard", href: "/", icon: ChartPieSlice }],
+  },
+  {
+    title: "EOS",
+    tone: "accent" as const,
+    children: [
+      { name: "Upload", href: "/eos/upload", icon: CloudArrowUp },
+      { name: "Explore", href: "/eos/explore", icon: Table },
+    ],
+  },
+  // {
+  //   title: "Test",
+  //   tone: "muted" as const,
+  //   children: [
+  //     { name: "Mail", href: "/mail", icon: Envelope },
+  //     { name: "Settings", href: "/settings", icon: Gear },
+  //   ],
+  // },
+];
+
+export function AppSidebar() {
   const pathname = usePathname();
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar>
+      <SidebarHeader className="flex-row items-center">
+        <Circuitry weight="duotone" className="size-10 shrink-0 text-muted-9" />
+        <span className="truncate text-3xl font-semibold tracking-tight">
+          Intrepio
+        </span>
+      </SidebarHeader>
+
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>METIS</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuButton isActive={pathname === "/"} asChild>
-                <Link href="/">
-                  <ChartPieSlice className="size-5" />
-                  <span>Dashboard</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel>EOS</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuButton isActive={pathname === "/upload"} asChild>
-                <Link href="/upload">
-                  <CloudArrowUp className="size-5" />
-                  <span>Upload</span>
-                </Link>
-              </SidebarMenuButton>
-              <SidebarMenuButton isActive={pathname === "/data"} asChild>
-                <Link href="/data">
-                  <Table className="size-5" />
-                  <span>Explore</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        <SidebarSeparator />
-
-        <SidebarGroup>
-          <SidebarGroupLabel>Test</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuButton isActive={pathname === "/mail"} asChild>
-                <Link href="/mail">
-                  <Envelope className="size-5" />
-                  <span>Mail</span>
-                </Link>
-              </SidebarMenuButton>
-              <SidebarMenuButton isActive={pathname === "/settings"} asChild>
-                <Link href="/settings">
-                  <Gear className="size-5" />
-                  <span>Settings</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel>GroupLabel</SidebarGroupLabel>
-          <SidebarGroupAction title="GroupAction">+</SidebarGroupAction>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuItem>MenuItem</SidebarMenuItem>
-              <SidebarMenuItem>MenuItem</SidebarMenuItem>
-              <SidebarMenuSub>
-                <SidebarMenuSubItem>MenuSubItem</SidebarMenuSubItem>
-                <SidebarMenuSubItem>MenuSubItem</SidebarMenuSubItem>
-                <SidebarMenuSubItem>MenuSubItem</SidebarMenuSubItem>
-              </SidebarMenuSub>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        {sidebarItems.map((group) => (
+          <SidebarGroup key={group.title}>
+            <SidebarGroupLabel>{group.title}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {group.children.map((item) => (
+                  <SidebarMenuItem key={item.name}>
+                    <SidebarMenuButton
+                      tooltip={item.name}
+                      tone={group.tone}
+                      isActive={pathname === item.href}
+                      asChild
+                    >
+                      <Link href={item.href}>
+                        <item.icon />
+                        <span>{item.name}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
       </SidebarContent>
 
-      <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <ThemeToggle />
-          </SidebarMenuItem>
-        </SidebarMenu>
+      <SidebarFooter className="block">
+        <ThemeToggle />
       </SidebarFooter>
     </Sidebar>
   );
