@@ -4,110 +4,94 @@ import * as React from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
-  List,
-  ArrowLineRight,
   // Envelope,
-  // ClipboardText,
   // Gear,
-  House,
+  ChartPieSlice,
   CloudArrowUp,
   Table,
+  Circuitry,
 } from "@phosphor-icons/react";
 
-import { cn } from "~/lib/utils";
-import { Button } from "~/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarFooter,
+  SidebarHeader,
+} from "~/components/ui/sidebar";
 
 import { ThemeToggle } from "./theme-toggle";
 
 const sidebarItems = [
-  { name: "Home", href: "/", icon: House },
-  { name: "EOS Upload", href: "/upload", icon: CloudArrowUp },
-  { name: "EOS Explore", href: "/data", icon: Table },
-  // { name: "Mail", href: "/mail", icon: Envelope },
-  // { name: "Tasks", href: "/tasks", icon: ClipboardText },
-  // { name: "Settings", href: "/settings", icon: Gear },
+  {
+    title: "METIS",
+    children: [{ name: "Dashboard", href: "/", icon: ChartPieSlice }],
+  },
+  {
+    title: "EOS",
+    tone: "accent" as const,
+    children: [
+      { name: "Upload", href: "/eos/upload", icon: CloudArrowUp },
+      { name: "Explore", href: "/eos/explore", icon: Table },
+    ],
+  },
+  // {
+  //   title: "Test",
+  //   tone: "muted" as const,
+  //   children: [
+  //     { name: "Mail", href: "/mail", icon: Envelope },
+  //     { name: "Settings", href: "/settings", icon: Gear },
+  //   ],
+  // },
 ];
 
-export function Sidebar() {
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
-
-  return (
-    <aside
-      className={cn(
-        "flex h-full flex-col border-r-2 bg-muted-1 transition-[width]",
-        isSidebarOpen ? "w-48 duration-0 xl:w-64" : "w-20",
-      )}
-    >
-      <div className="h-20 w-full border-b-2 p-5">
-        <Button
-          variant="ghost"
-          icon
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        >
-          <ArrowLineRight
-            className={cn(
-              "size-5 transition duration-200",
-              isSidebarOpen && "-scale-x-100",
-            )}
-          />
-        </Button>
-      </div>
-
-      <SidebarInternal isSidebarOpen={isSidebarOpen} className="grow p-5" />
-
-      <div className="flex items-center justify-start p-5">
-        <ThemeToggle />
-      </div>
-    </aside>
-  );
-}
-
-export function MobileSidebar() {
-  return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="ghost" icon>
-          <List className="size-5" />
-          <span className="sr-only">Toggle sidebar</span>
-        </Button>
-      </SheetTrigger>
-
-      <SheetContent side="left" className="w-64">
-        <SidebarInternal isSidebarOpen className="pt-8" />
-      </SheetContent>
-    </Sheet>
-  );
-}
-
-function SidebarInternal({
-  isSidebarOpen,
-  className,
-}: {
-  isSidebarOpen: boolean;
-  className?: string;
-}) {
+export function AppSidebar() {
   const pathname = usePathname();
 
   return (
-    <nav className={cn("flex flex-col gap-4", className)}>
-      {sidebarItems.map((item) => (
-        <Button
-          key={item.name}
-          asChild
-          variant={pathname === item.href ? "solid" : "ghost"}
-          icon={!isSidebarOpen}
-          className={cn(
-            "justify-start text-sm xl:text-base",
-            isSidebarOpen && "px-1.5",
-          )}
-        >
-          <Link href={item.href} className="gap-1.5">
-            <item.icon className="size-5" />
-            <span className={cn(!isSidebarOpen && "hidden")}>{item.name}</span>
-          </Link>
-        </Button>
-      ))}
-    </nav>
+    <Sidebar>
+      <SidebarHeader className="flex-row items-center">
+        <Circuitry weight="duotone" className="size-10 shrink-0 text-muted-9" />
+        <span className="truncate text-3xl font-semibold tracking-tight">
+          Intrepio
+        </span>
+      </SidebarHeader>
+
+      <SidebarContent>
+        {sidebarItems.map((group) => (
+          <SidebarGroup key={group.title}>
+            <SidebarGroupLabel>{group.title}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {group.children.map((item) => (
+                  <SidebarMenuItem key={item.name}>
+                    <SidebarMenuButton
+                      tooltip={item.name}
+                      tone={group.tone}
+                      isActive={pathname === item.href}
+                      asChild
+                    >
+                      <Link href={item.href}>
+                        <item.icon />
+                        <span>{item.name}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
+      </SidebarContent>
+
+      <SidebarFooter className="block">
+        <ThemeToggle />
+      </SidebarFooter>
+    </Sidebar>
   );
 }

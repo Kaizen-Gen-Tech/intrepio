@@ -1,4 +1,5 @@
 import { VercelToolbar } from "@vercel/toolbar/next";
+import { cookies } from "next/headers";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 
@@ -20,6 +21,9 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
+  const cookieStore = cookies();
+  const sidebarOpen = cookieStore.get("sidebar:state")?.value === "true";
+
   const shouldInjectToolbar = env.VERCEL_ENV === "development";
 
   return (
@@ -29,7 +33,7 @@ export default async function Layout({
       suppressHydrationWarning
     >
       <body className="selection:bg-accent-5 selection:text-accent-12">
-        <Providers>
+        <Providers sidebarOpen={sidebarOpen}>
           {children}
           {shouldInjectToolbar && <VercelToolbar />}
         </Providers>
