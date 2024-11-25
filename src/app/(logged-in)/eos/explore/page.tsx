@@ -3,7 +3,7 @@ import { DataTable } from "./data-table";
 import { getData } from "./actions";
 
 export const metadata = {
-  title: "Data",
+  title: "Explore",
 };
 
 export default async function Page() {
