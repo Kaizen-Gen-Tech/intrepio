@@ -34,6 +34,7 @@ const buttonVariants = cva(
         false: "whitespace-nowrap",
       },
       size: {
+        xs: "text-xs hover:shadow-sm",
         sm: "text-sm hover:shadow-sm",
         md: "text-base hover:shadow-md",
         lg: "text-lg hover:shadow-lg",
@@ -44,7 +45,7 @@ const buttonVariants = cva(
         tone: "primary",
         variant: "solid",
         className:
-          "bg-primary-9 fill-black text-black shadow-primary-11 hover:bg-primary-10 dark:shadow-primary-12",
+          "bg-primary-9 fill-black text-black hover:bg-primary-10 hover:shadow-primary-12",
       },
       {
         tone: "primary",
@@ -60,7 +61,7 @@ const buttonVariants = cva(
         tone: "secondary",
         variant: "solid",
         className:
-          "bg-secondary-9 fill-black text-black shadow-secondary-11 hover:bg-secondary-10 dark:shadow-secondary-12",
+          "bg-secondary-9 fill-black text-black hover:bg-secondary-10 hover:shadow-secondary-12",
       },
       {
         tone: "secondary",
@@ -76,7 +77,7 @@ const buttonVariants = cva(
         tone: "accent",
         variant: "solid",
         className:
-          "bg-accent-9 fill-white text-white shadow-accent-11 hover:bg-accent-10 dark:shadow-accent-12",
+          "bg-accent-9 fill-white text-white hover:bg-accent-10 hover:shadow-accent-12",
       },
       {
         tone: "accent",
@@ -92,7 +93,7 @@ const buttonVariants = cva(
         tone: "muted",
         variant: "solid",
         className:
-          "bg-muted-9 fill-white text-white shadow-muted-11 hover:bg-muted-10 dark:shadow-muted-12",
+          "bg-muted-9 fill-white text-white hover:bg-muted-10 hover:shadow-muted-12",
       },
       {
         tone: "muted",
@@ -108,7 +109,7 @@ const buttonVariants = cva(
         tone: "destructive",
         variant: "solid",
         className:
-          "bg-destructive-9 fill-white text-white shadow-destructive-11 hover:bg-destructive-10 dark:shadow-destructive-12",
+          "bg-destructive-9 fill-white text-white hover:bg-destructive-10 hover:shadow-destructive-12",
       },
       {
         tone: "destructive",
@@ -150,6 +151,11 @@ const buttonVariants = cva(
 
       {
         icon: true,
+        size: "xs",
+        className: "p-0.5",
+      },
+      {
+        icon: true,
         size: "sm",
         className: "p-1",
       },
@@ -166,6 +172,11 @@ const buttonVariants = cva(
 
       {
         flex: false,
+        size: "xs",
+        className: "h-6",
+      },
+      {
+        flex: false,
         size: "sm",
         className: "h-8",
       },
@@ -180,6 +191,12 @@ const buttonVariants = cva(
         className: "h-12",
       },
 
+      {
+        icon: false,
+        flex: false,
+        size: "xs",
+        className: "px-1.5 py-0.5",
+      },
       {
         icon: false,
         flex: false,

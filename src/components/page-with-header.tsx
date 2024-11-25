@@ -1,8 +1,9 @@
 "use client";
 
+import { SidebarTrigger } from "~/components/ui/sidebar";
+
 import { AccountSwitcher } from "./account-switcher";
 import { Notifications } from "./notifications";
-import { MobileSidebar } from "./sidebar";
 
 export function PageWithHeader({
   headerChildren,
@@ -12,11 +13,9 @@ export function PageWithHeader({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-dvh max-w-full flex-1">
-      <header className="flex h-20 shrink-0 items-center justify-between gap-4 border-b-2 bg-muted-1 p-4">
-        <div className="flex items-center gap-4 lg:hidden">
-          <MobileSidebar />
-        </div>
+    <div className="flex-1 overflow-hidden">
+      <header className="flex h-20 items-center gap-4 text-nowrap border-b-2 bg-muted-1 p-4">
+        <SidebarTrigger />
 
         {headerChildren}
 

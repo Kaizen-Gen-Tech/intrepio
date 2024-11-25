@@ -30,7 +30,7 @@ export function Mail({
   }, [selectedId]);
 
   return (
-    <Tabs defaultValue="all" className="flex h-full flex-col">
+    <Tabs defaultValue="all" asChild>
       <PageWithHeader
         headerChildren={
           <div
@@ -43,49 +43,51 @@ export function Mail({
           </div>
         }
       >
-        {useBreakpoint("lg").isAboveLg ? (
-          <ResizablePanelGroup
-            direction="horizontal"
-            onLayout={(sizes: number[]) => {
-              if (sizes.length !== 2) return;
+        <main className="h-full">
+          {useBreakpoint("lg").isAboveLg ? (
+            <ResizablePanelGroup
+              direction="horizontal"
+              onLayout={(sizes: number[]) => {
+                if (sizes.length !== 2) return;
 
-              document.cookie = `react-resizable-panels:layout:mail=${JSON.stringify(
-                sizes,
-              )}`;
-              setPanelSize(sizes[0]!);
-            }}
-            className="z-10"
-          >
-            <ResizablePanel defaultSize={defaultLayout[0]} minSize={30}>
+                document.cookie = `react-resizable-panels:layout:mail=${JSON.stringify(
+                  sizes,
+                )}`;
+                setPanelSize(sizes[0]!);
+              }}
+              className="z-10"
+            >
+              <ResizablePanel defaultSize={defaultLayout[0]} minSize={30}>
+                <MailContent />
+              </ResizablePanel>
+
+              <ResizableHandle withHandle />
+
+              <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
+                <MailDisplay mail={selectedMail} />
+              </ResizablePanel>
+            </ResizablePanelGroup>
+          ) : (
+            <div className="flex size-full flex-col overflow-hidden">
+              <div className="border-b-2 p-4">
+                <MailTabs />
+              </div>
+
               <MailContent />
-            </ResizablePanel>
 
-            <ResizableHandle withHandle />
-
-            <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
-              <MailDisplay mail={selectedMail} />
-            </ResizablePanel>
-          </ResizablePanelGroup>
-        ) : (
-          <div className="flex size-full flex-col overflow-hidden">
-            <div className="border-b-2 p-4">
-              <MailTabs />
+              {selectedMail !== undefined && (
+                <Dialog
+                  open={selectedId !== undefined}
+                  onOpenChange={(open) => !open && setSelectedId(undefined)}
+                >
+                  <DialogContent className="h-4/5 p-0">
+                    <MailDisplayMobile mail={selectedMail} />
+                  </DialogContent>
+                </Dialog>
+              )}
             </div>
-
-            <MailContent />
-
-            {selectedMail !== undefined && (
-              <Dialog
-                open={selectedId !== undefined}
-                onOpenChange={(open) => !open && setSelectedId(undefined)}
-              >
-                <DialogContent className="h-4/5 p-0">
-                  <MailDisplayMobile mail={selectedMail} />
-                </DialogContent>
-              </Dialog>
-            )}
-          </div>
-        )}
+          )}
+        </main>
       </PageWithHeader>
     </Tabs>
   );

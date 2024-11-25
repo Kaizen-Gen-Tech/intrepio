@@ -8,15 +8,15 @@ import { cn } from "~/lib/utils";
 const ScrollArea = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root> & {
-    horizontalScrollClassName?: string;
-    verticalScrollClassName?: string;
+    verticalScrollbarClassName?: string;
+    horizontalScrollbarClassName?: string;
   }
 >(
   (
     {
       className,
-      horizontalScrollClassName,
-      verticalScrollClassName,
+      verticalScrollbarClassName,
+      horizontalScrollbarClassName,
       children,
       ...props
     },
@@ -24,66 +24,46 @@ const ScrollArea = React.forwardRef<
   ) => (
     <ScrollAreaPrimitive.Root
       ref={ref}
-      className={cn(
-        "group size-full overflow-hidden [&:has([data-orientation=horizontal])]:pb-4 [&:has([data-orientation=vertical])]:pr-4",
-        className,
-      )}
+      className={cn("group size-full overflow-hidden", className)}
       {...props}
     >
-      <ScrollAreaPrimitive.Viewport className="!block size-full" asChild>
+      <ScrollAreaPrimitive.Viewport className="size-full group-has-[[data-scrollbar][data-orientation=horizontal]]:pb-4 group-has-[[data-scrollbar][data-orientation=vertical]]:pr-4">
         {children}
       </ScrollAreaPrimitive.Viewport>
 
-      <ScrollAreaScrollbar
-        orientation="horizontal"
-        className={horizontalScrollClassName}
-      />
-      <ScrollAreaScrollbar
+      <Scrollbar
         orientation="vertical"
-        className={verticalScrollClassName}
+        className={cn("w-3.5", verticalScrollbarClassName)}
       />
-      <ScrollAreaPrimitive.Corner className="z-10 bg-muted-1 outline outline-2 outline-muted-10" />
+
+      <Scrollbar
+        orientation="horizontal"
+        className={cn("h-3.5 flex-col", horizontalScrollbarClassName)}
+      />
+
+      <ScrollAreaPrimitive.Corner className="z-10 bg-muted-10 outline outline-2 outline-muted-10" />
     </ScrollAreaPrimitive.Root>
   ),
 );
 ScrollArea.displayName = ScrollAreaPrimitive.Root.displayName;
 
-const ScrollAreaScrollbar = React.forwardRef<
-  React.ElementRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>,
-  React.ComponentPropsWithoutRef<
-    typeof ScrollAreaPrimitive.ScrollAreaScrollbar
-  > & {
-    thumbClassName?: string;
-  }
->(
-  (
-    { orientation = "vertical", thumbClassName, className, children, ...props },
-    ref,
-  ) => (
+function Scrollbar({
+  className,
+  children: _children,
+  ...props
+}: React.ComponentProps<typeof ScrollAreaPrimitive.Scrollbar>) {
+  return (
     <ScrollAreaPrimitive.ScrollAreaScrollbar
-      ref={ref}
-      orientation={orientation}
+      data-scrollbar
       className={cn(
-        "z-10 flex touch-none select-none bg-muted-5 outline outline-2 outline-muted-10",
-        orientation === "horizontal" &&
-          "h-4 flex-col group-[&:not(:has([data-orientation=vertical]))]:!right-0",
-        orientation === "vertical" &&
-          "w-4 flex-row group-[&:not(:has([data-orientation=horizontal]))]:!bottom-0",
+        "flex touch-none select-none bg-muted-5 outline outline-2 outline-muted-10",
         className,
       )}
       {...props}
     >
-      {children}
-      <ScrollAreaPrimitive.ScrollAreaThumb
-        className={cn(
-          "relative flex-1 bg-primary-9 outline outline-2 outline-muted-10",
-          thumbClassName,
-        )}
-      />
+      <ScrollAreaPrimitive.ScrollAreaThumb className="relative flex-1 bg-primary-9 outline outline-2 outline-muted-10" />
     </ScrollAreaPrimitive.ScrollAreaScrollbar>
-  ),
-);
-ScrollAreaScrollbar.displayName =
-  ScrollAreaPrimitive.ScrollAreaScrollbar.displayName;
+  );
+}
 
 export { ScrollArea };
