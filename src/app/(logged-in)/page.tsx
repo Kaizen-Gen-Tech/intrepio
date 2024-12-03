@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { PageWithHeader } from "~/components/page-with-header";
+import Image from "next/image";
 
 export const metadata = {
   title: "Dashboard",
@@ -29,12 +30,12 @@ export default async function Page() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between py-2">
                 <CardTitle className="text-base font-medium">
-                  Total Revenue
+                  PMPM (current month)
                 </CardTitle>
                 <ChartBarHorizontal className="size-6" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">$45,231.89</div>
+                <div className="text-2xl font-bold">$342.67</div>
                 <p className="text-xs text-muted-11">+20.1% from last month</p>
               </CardContent>
             </Card>
@@ -42,19 +43,21 @@ export default async function Page() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between py-2">
                 <CardTitle className="text-base font-medium">
-                  Subscriptions
+                  Medical Loss Ratio
                 </CardTitle>
                 <Users className="size-6" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">+2350</div>
-                <p className="text-xs text-muted-11">+180.1% from last month</p>
+                <div className="text-2xl font-bold">84.3%</div>
+                <p className="text-xs text-muted-11">+.01% from last month</p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between py-2">
-                <CardTitle className="text-base font-medium">Sales</CardTitle>
+                <CardTitle className="text-base font-medium">
+                  New Claims (current month)
+                </CardTitle>
                 <ChartPieSlice className="size-6" />
               </CardHeader>
               <CardContent>
@@ -66,13 +69,15 @@ export default async function Page() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between py-2">
                 <CardTitle className="text-base font-medium">
-                  Active Now
+                  High Cost Claims
                 </CardTitle>
                 <ChartLine className="size-6" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">+573</div>
-                <p className="text-xs text-muted-11">+201 since last hour</p>
+                <div className="text-2xl font-bold">+49</div>
+                <p className="text-xs text-muted-11">
+                  Driven by : Specialty Drugs, Premature Birth and 4 more
+                </p>
               </CardContent>
             </Card>
           </div>
@@ -80,26 +85,32 @@ export default async function Page() {
           <div className="grid gap-4 lg:grid-cols-7">
             <Card className="lg:col-span-4">
               <CardHeader>
-                <CardTitle>Overview</CardTitle>
+                <CardTitle>Model Snapshot</CardTitle>
               </CardHeader>
-              <CardContent className="m-4 flex-1 bg-muted-7" />
+              <CardContent className="relative m-4 flex-1 bg-muted-7">
+                <Image src="/sample.png" alt="" fill />
+              </CardContent>
             </Card>
 
             <Card className="lg:col-span-3">
               <CardHeader>
-                <CardTitle>Recent Sales</CardTitle>
+                <CardTitle>Recent Claims</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-col gap-8">
                   {[...Array<number>(5)].map((_, i) => (
                     <div key={i} className="flex w-full items-center gap-4">
                       <Avatar>
-                        <AvatarFallback>U{i + 1}</AvatarFallback>
+                        <AvatarFallback>C{i + 1}</AvatarFallback>
                       </Avatar>
 
                       <div className="flex flex-col gap-1 text-sm">
-                        <p className="font-medium leading-none">User {i + 1}</p>
-                        <p className="text-muted-11">user{i + 1}@example.com</p>
+                        <p className="font-medium leading-none">
+                          Claim {i + 1}
+                        </p>
+                        <p className="text-muted-11">
+                          hospitalclaims{i + 1}@example.com
+                        </p>
                       </div>
 
                       <div className="flex flex-1 justify-end gap-2.5 font-mono font-medium">
@@ -118,19 +129,19 @@ export default async function Page() {
           <div className="grid gap-4 lg:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle>Top Products</CardTitle>
+                <CardTitle>Top Dx Codes</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-col gap-8">
                   {[...Array<number>(5)].map((_, i) => (
                     <div key={i} className="flex w-full items-center gap-4">
                       <Avatar>
-                        <AvatarFallback>P{i + 1}</AvatarFallback>
+                        <AvatarFallback>Dx{i + 1}</AvatarFallback>
                       </Avatar>
 
                       <div className="flex flex-col gap-1 text-sm">
                         <p className="font-medium leading-none">
-                          Product {i + 1}
+                          Condition {i + 1}
                         </p>
                         <p className="text-muted-11">
                           Category {String.fromCharCode(65 + i)}
@@ -141,7 +152,7 @@ export default async function Page() {
                         <p suppressHydrationWarning>
                           {Math.floor(Math.random() * 1000)}
                         </p>
-                        <p>sales</p>
+                        <p>claims</p>
                       </div>
                     </div>
                   ))}
@@ -151,22 +162,22 @@ export default async function Page() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Recent Activity</CardTitle>
+                <CardTitle>Recent Outliers</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-col gap-8">
                   {[...Array<number>(5)].map((_, i) => (
                     <div key={i} className="flex items-center gap-4">
                       <Avatar>
-                        <AvatarFallback>A{i + 1}</AvatarFallback>
+                        <AvatarFallback>O{i + 1}</AvatarFallback>
                       </Avatar>
 
                       <div className="flex flex-col gap-1 text-sm">
                         <p className="font-medium leading-none">
-                          Activity {i + 1}
+                          Claim {i + 1}
                         </p>
                         <p className="text-muted-11" suppressHydrationWarning>
-                          {Math.floor(Math.random() * 60)} minutes ago
+                          {Math.floor(Math.random() * 60)} days ago
                         </p>
                       </div>
                     </div>
