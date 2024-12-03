@@ -1,0 +1,26 @@
+{
+  "name": "${localWorkspaceFolderBasename}",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:20-bookworm",
+  "runArgs": ["--name", "${localWorkspaceFolderBasename}"],
+  "workspaceMount": "source=${localEnv:HOME}/code,target=/code,type=bind,consistency=cached",
+  "workspaceFolder": "/code/${localWorkspaceFolderBasename}",
+  "forwardPorts": [3000, 43214],
+  "postAttachCommand": "pnpm install",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "configureZshAsDefaultShell": "true"
+    },
+    "ghcr.io/devcontainers/features/github-cli": {},
+    "ghcr.io/devcontainers-contrib/features/prisma:2": {},
+    "ghcr.io/devcontainers-contrib/features/vercel-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "YoavBls.pretty-ts-errors",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss"
+      ]
+    }
+  }
+}
